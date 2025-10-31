@@ -1,4 +1,4 @@
-## IDENTIFY - 5I Framework
+﻿## IDENTIFY - 5I Framework
 ### SOC: Trao quyền cho Nhà đầu tư (Empowering Traders)
 ### OC: Xây dựng bộ lệnh điều kiện chứng khoán cơ sở #1 thị trường
 
@@ -9,7 +9,7 @@
 VNDIRECT hướng tới mục tiêu xây dựng **hệ thống lệnh điều kiện số 1** trên thị trường chứng khoán Việt Nam trong vòng 3 tháng. Sáng kiến này sẽ chuyển đổi VNDIRECT từ việc có khả năng lệnh điều kiện cơ bản (~3 loại lệnh, hiệu lực trong ngày) sang nền tảng dẫn đầu thị trường với:
 
 - **15+ loại lệnh điều kiện** (so với 10+ của SSI, 8 của TCBS)
-- **Hiệu lực 30 ngày** (ngang bằng TCBS)
+- **Hiệu lực 365 ngày** (> 30 ngày so với SSI)
 - **API công khai**
 - **UX tốt nhất thị trường** với công cụ tạo lệnh trực quan và tài liệu hướng dẫn
 
@@ -74,7 +74,7 @@ VNDIRECT hướng tới mục tiêu xây dựng **hệ thống lệnh điều ki
 | **Độ trễ thực thi lệnh** | Chưa rõ | <50ms | <20ms | Độ trễ phân vị 95 |
 | **Tỷ lệ thành công thực thi** | Chưa rõ | 99.5% | 99.9% | Thực thi thành công / Tổng kích hoạt |
 | **Hài lòng khách hàng (CSAT)** | Chưa rõ | 4.5/5 | 4.7/5 | Khảo sát sau thực thi |
-| **Hiệu lực lệnh** | Trong ngày | 30 ngày | 90 ngày | Thời gian hiệu lực tối đa |
+| **Hiệu lực lệnh** | 30 ngày | 90 ngày | 365 ngày | Thời gian hiệu lực tối đa |
 
 **Lưu ý:** Cần thu thập số liệu baseline từ hệ thống hiện tại.
 
@@ -225,7 +225,7 @@ TODO
 **Tại Sao Chưa Là #1?**
 
 1. **Bộ Tính Năng Hạn Chế** → Ít loại lệnh
-2. **Thời Hạn Hiệu Lực Ngắn** → Chỉ trong ngày là bất tiện
+2. **Thời Hạn Hiệu Lực Ngắn** → Chỉ trong 30 ngày là bất tiện
 3. **Không Có Open API Công Khai** → Không thể thu hút algo/quant traders
 5. **Ràng Buộc Hệ Thống Cũ** → Giới hạn hiệu suất và khả năng mở rộng
 
@@ -293,20 +293,18 @@ TODO
 TODO 
 
 **Giai Đoạn 1: Cốt Lõi (Tháng 1-2)** - BẮT BUỘC PHẢI CÓ
-1. Lệnh Cắt Lỗ (Stop Loss)
-2. Lệnh Chốt Lời (Take Profit)
-3. Lệnh Theo Thời Gian (TCO)
-4. Lệnh Trailing Stop
+1. Lệnh Trailing Stop 
+2. Lệnh OCO (Một Hủy Cái Kia)
+3. Lệnh Tín hiệu (RSI, MACD)
 
 **Giai Đoạn 2: Nâng Cao (Tháng 3)** - LỢI THẾ CẠNH TRANH
-5. OCO (Một Hủy Cái Kia)
-6. Lệnh Bracket
-7. Chuỗi Điều Kiện
+4. Lệnh chuỗi điều kiện
+5. Lệnh Bracket
 
 **Giai Đoạn 3: Chuyên Nghiệp (Tháng 4+)** - KHÁC BIỆT HÓA
-8. Lệnh kích hoạt bởi TA (RSI, MACD)
-9. Lệnh cấp danh mục
-10. Trailing nâng cao (dựa trên ATR)
+6. Lệnh kích hoạt bởi TA (RSI, MACD)
+7. Lệnh cấp danh mục
+9. Trailing nâng cao (dựa trên ATR)
 
 ### 4.4 Đổi Mới Dài Hạn (6-12 tháng)
 
@@ -405,7 +403,7 @@ TODO
 | Lĩnh Vực | Hiện Tại | Mục Tiêu | Thời Gian |
 |----------|----------|----------|-----------|
 | **Loại Lệnh** | 5 loại | 15+ loại | 3 tháng |
-| **Hiệu Lực** | Trong ngày | 30 ngày | 2 tháng |
+| **Hiệu Lực** | 30 ngày | 365 ngày | 2 tháng |
 | **API** | Chỉ tổ chức | Công khai + docs + SDK | 3 tháng |
 | **Giám Sát** | Batch/theo lịch | Thời gian thực | 2 tháng |
 | **Giáo Dục** | Tối thiểu | HDSD toàn diện + video | Liên tục |
@@ -457,3 +455,4 @@ TODO
 | **Chậm tiến độ** | Trung bình | Trung bình | Đệm, ưu tiên |
 
 ---
+
