@@ -572,175 +572,48 @@ Trạng thái = "Chờ kích hoạt"?
 
 #### PROCESS
 
-**Thuật toán xử lý:**
+**Các bước xử lý:**
 
-**Bước 1: Validate User Input**
+**Bước 1: Validate Input**
+- Validate khối lượng: Phải > 0, là bội số của 100 (lô chẵn)
+- Validate mã CK: Phải thuộc danh sách mã hợp lệ (HOSE, HNX, UPCOM)
+- Validate biên độ trượt: Phải > 0, là bội số của bước giá
+- Validate bước giá kích hoạt: Phải > 0, là bội số của bước giá (chỉ với LO), disable với MTL
+- Validate giá kích hoạt: Nếu MARKET thì lấy giá thị trường, nếu MANUAL thì validate > 0 và đúng bước giá
+- Validate thời gian hiệu lực: Tối đa 30 ngày (GTD), hoặc cuối phiên (DAY)
 
-```
-# Validate Khối lượng
-IF volume <= 0 THEN
-    RETURN error "VAL-001: Khối lượng phải là số nguyên dương"
-END IF
-
-IF volume % 100 != 0 THEN
-    RETURN error "VAL-001: Khối lượng phải là bội số của 100 (lô chẵn)"
-END IF
-
-# Validate Mã CK
-IF symbol NOT IN valid_symbols_list THEN
-    RETURN error "VAL-002: Mã chứng khoán không hợp lệ"
-END IF
-
-# Validate Biên độ trượt
-IF trailing_amount <= 0 THEN
-    RETURN error "VAL-003: Biên độ trượt phải > 0"
-END IF
-
-IF trailing_amount % tick_size != 0 THEN
-    suggested_value = ROUND(trailing_amount / tick_size) * tick_size
-    RETURN error "VAL-003: Biên độ trượt không đúng bước giá. Gợi ý: " + suggested_value
-END IF
-
-# Validate Bước giá kích hoạt (chỉ với LO)
-IF child_order_type == "LO" THEN
-    IF activation_price_offset <= 0 THEN
-        RETURN error "VAL-004: Bước giá kích hoạt phải > 0"
-    END IF
-
-    IF activation_price_offset % tick_size != 0 THEN
-        suggested_value = ROUND(activation_price_offset / tick_size) * tick_size
-        RETURN error "VAL-004: Bước giá kích hoạt không đúng bước giá. Gợi ý: " + suggested_value
-    END IF
-ELSE IF child_order_type == "MTL" THEN
-    activation_price_offset = 0
-END IF
-
-# Validate Giá kích hoạt
-IF trigger_price_method == "MARKET" THEN
-    trigger_price = market_price
-ELSE IF trigger_price_method == "MANUAL" THEN
-    IF trigger_price <= 0 THEN
-        RETURN error "VAL-006: Giá kích hoạt phải > 0"
-    END IF
-
-    IF trigger_price % tick_size != 0 THEN
-        suggested_value = ROUND(trigger_price / tick_size) * tick_size
-        RETURN error "VAL-006: Giá kích hoạt không đúng bước giá. Gợi ý: " + suggested_value
-    END IF
-END IF
-
-# Validate Thời gian hiệu lực
-IF validity_type == "GTD" THEN
-    IF expiry_date > created_date + 30 days THEN
-        RETURN error "VAL-005: Thời gian hiệu lực tối đa 30 ngày"
-    END IF
-
-    IF expiry_date < created_date THEN
-        RETURN error "VAL-005: Ngày hết hạn phải sau ngày đặt lệnh"
-    END IF
-ELSE IF validity_type == "DAY" THEN
-    expiry_date = current_date + " 14:45:00"
-END IF
-```
-
-**Bước 2: Warning checks (không chặn đặt lệnh)**
-
-```
-warnings = []
-
-# Warning: Biên độ trượt quá lớn
-IF trailing_amount > reference_price * 0.1 THEN
-    warnings.add("VAL-007: Biên độ trượt lớn (> 10% giá tham chiếu), lệnh có thể khó kích hoạt")
-END IF
-
-# Warning: Giá kích hoạt không hợp lý (Lệnh MUA)
-IF side == "BUY" AND trigger_price <= market_price THEN
-    warnings.add("VAL-008: Giá kích hoạt ≤ Giá thị trường, lệnh có thể được kích hoạt ngay lập tức")
-END IF
-
-# Warning: Giá kích hoạt không hợp lý (Lệnh BÁN)
-IF side == "SELL" AND trigger_price >= market_price THEN
-    warnings.add("VAL-009: Giá kích hoạt ≥ Giá thị trường, lệnh có thể được kích hoạt ngay lập tức")
-END IF
-
-# Nếu có warning, hiển thị cho user nhưng vẫn cho phép đặt lệnh
-IF warnings.length > 0 THEN
-    SHOW warnings to user
-    WAIT for user confirmation
-END IF
-```
+**Bước 2: Kiểm tra Cảnh báo (Warning)**
+- Cảnh báo nếu biên độ trượt > 10% giá tham chiếu
+- Cảnh báo nếu lệnh MUA có giá kích hoạt ≤ giá thị trường
+- Cảnh báo nếu lệnh BÁN có giá kích hoạt ≥ giá thị trường
+- Hiển thị warning cho user nhưng vẫn cho phép đặt lệnh nếu user xác nhận
 
 **Bước 3: Tạo Order Record**
+- Generate order_id theo format: TS-YYYYMMDD-NNNNNN
+- Tạo order object với đầy đủ thông tin: giá kích hoạt ban đầu, giá kích hoạt hiện tại, giá đỉnh/đáy
+- Set trạng thái: ACTIVE
 
-```
-order_id = GENERATE_ORDER_ID("TS")  # TS-YYYYMMDD-NNNNNN
+**Bước 4: Lưu Database**
+- Insert order vào bảng `conditional_orders` (trong transaction)
+- Log audit trail vào bảng `order_audit_log`
+- Rollback nếu có lỗi
 
-order = {
-    order_id: order_id,
-    customer_id: customer_id,
-    account_number: account_number,
-    order_type: "TRAILING_STOP",
-    side: side,
-    symbol: symbol,
-    volume: volume,
-    initial_trigger_price: trigger_price,
-    current_trigger_price: trigger_price,
-    trailing_amount: trailing_amount,
-    activation_price_offset: activation_price_offset,
-    validity_type: validity_type,
-    expiry_date: expiry_date,
-    child_order_type: child_order_type,
-    status: "ACTIVE",
-    created_at: current_timestamp,
-    updated_at: current_timestamp,
-    highest_price: market_price (nếu side == "SELL"),
-    lowest_price: market_price (nếu side == "BUY"),
-    child_order_id: null,
-    cancellation_reason: null
-}
-```
-
-**Bước 4: Lưu vào Database**
-
-```
-BEGIN TRANSACTION
-    INSERT INTO conditional_orders (order)
-
-    # Log audit trail
-    INSERT INTO order_audit_log {
-        order_id: order_id,
-        action: "CREATE",
-        timestamp: current_timestamp,
-        user: customer_id,
-        details: order
-    }
-COMMIT TRANSACTION
-```
-
-**Bước 5: Đăng ký theo dõi giá thị trường**
-
-```
-# Đưa order vào hàng đợi theo dõi
-market_monitoring_queue.enqueue(order_id)
-
-# Subscribe market data stream cho symbol
-market_data_service.subscribe(symbol, order_id)
-```
+**Bước 5: Đăng ký Market Data**
+- Đưa order vào hàng đợi theo dõi: `market_monitoring_queue`
+- Subscribe market data stream cho symbol
 
 **Business Logic:**
 
-- Giá kích hoạt ban đầu:
-  - Nếu chọn "Giá hiện tại": Lấy giá thị trường tại thời điểm đặt lệnh
-  - Nếu chọn "Nhập giá": Sử dụng giá khách hàng nhập
-- Lưu cả `initial_trigger_price` (giá ban đầu) và `current_trigger_price` (giá hiện tại, sẽ được cập nhật liên tục)
-- Lưu `highest_price` (với lệnh BÁN) hoặc `lowest_price` (với lệnh MUA) để theo dõi giá đỉnh/đáy
+- Giá kích hoạt ban đầu: Giá thị trường (MARKET) hoặc giá khách hàng nhập (MANUAL)
+- Lưu cả `initial_trigger_price` và `current_trigger_price` (sẽ được cập nhật liên tục)
+- Lưu `highest_price` (lệnh BÁN) hoặc `lowest_price` (lệnh MUA) để theo dõi giá đỉnh/đáy
 - Không kiểm tra sức mua/bán tại thời điểm đặt lệnh (chỉ kiểm tra khi kích hoạt)
 
 **Error Handling:**
 
-- Lỗi validate: Trả về error code và message cụ thể, không cho đặt lệnh
-- Lỗi database: Rollback transaction, trả về lỗi "Không thể tạo lệnh, vui lòng thử lại"
-- Lỗi market data service: Trả về lỗi "Không lấy được giá thị trường, vui lòng thử lại"
+- Lỗi validate: Trả về error code và message, không cho đặt lệnh
+- Lỗi database: Rollback transaction, trả về error 500
+- Lỗi market data: Trả về error 503
 
 #### OUTPUT
 
@@ -806,258 +679,56 @@ market_data_service.subscribe(symbol, order_id)
 
 #### PROCESS
 
-**Thuật toán xử lý (chạy liên tục cho mỗi lệnh ACTIVE):**
+**Các bước xử lý (chạy liên tục cho mỗi lệnh ACTIVE):**
 
-**Bước 1: Kiểm tra thời gian hiệu lực**
+**Bước 1: Kiểm tra Thời gian Hiệu lực**
+- Nếu `current_time >= expiry_date`:
+  - Cập nhật trạng thái → EXPIRED
+  - Dừng theo dõi market data
+  - Gửi thông báo ORDER_EXPIRED
 
-```
-IF current_time >= expiry_date THEN
-    # Lệnh hết hạn
-    UPDATE conditional_orders
-    SET status = "EXPIRED", updated_at = current_time
-    WHERE order_id = order_id
+**Bước 2: Cập nhật Giá Đỉnh/Đáy và Điều chỉnh Giá Kích hoạt**
 
-    # Dừng theo dõi
-    market_data_service.unsubscribe(symbol, order_id)
-    market_monitoring_queue.remove(order_id)
+**Với lệnh BÁN:**
+- Theo dõi giá cao nhất: Nếu giá thị trường > `highest_price` → cập nhật `highest_price`
+- Điều chỉnh giá kích hoạt lên: `new_trigger_price = market_price - trailing_amount`
+- Chỉ tăng giá kích hoạt (không giảm): Nếu `new_trigger_price > current_trigger_price` → cập nhật
+- Điều kiện kích hoạt: `market_price <= current_trigger_price`
 
-    # Gửi thông báo
-    SEND_NOTIFICATION(customer_id, "ORDER_EXPIRED", order_details)
+**Với lệnh MUA:**
+- Theo dõi giá thấp nhất: Nếu giá thị trường < `lowest_price` → cập nhật `lowest_price`
+- Điều chỉnh giá kích hoạt xuống: `new_trigger_price = market_price + trailing_amount`
+- Chỉ giảm giá kích hoạt (không tăng): Nếu `new_trigger_price < current_trigger_price` → cập nhật
+- Điều kiện kích hoạt: `market_price >= current_trigger_price`
 
-    RETURN
-END IF
-```
-
-**Bước 2: Cập nhật giá đỉnh/đáy và điều chỉnh giá kích hoạt**
-
-```
-IF side == "SELL" THEN
-    # Lệnh BÁN: Theo dõi giá cao nhất
-
-    # Cập nhật giá cao nhất nếu giá hiện tại cao hơn
-    IF current_market_price > highest_price THEN
-        highest_price = current_market_price
-
-        # Điều chỉnh giá kích hoạt lên theo
-        new_trigger_price = current_market_price - trailing_amount
-
-        # Chỉ tăng giá kích hoạt, không giảm
-        IF new_trigger_price > current_trigger_price THEN
-            current_trigger_price = new_trigger_price
-
-            # Lưu vào database
-            UPDATE conditional_orders
-            SET current_trigger_price = current_trigger_price,
-                highest_price = highest_price,
-                updated_at = current_time
-            WHERE order_id = order_id
-        END IF
-    END IF
-
-    # Kiểm tra điều kiện kích hoạt: Giá giảm và chạm giá kích hoạt
-    IF current_market_price <= current_trigger_price THEN
-        trigger_order = TRUE
-    END IF
-
-ELSE IF side == "BUY" THEN
-    # Lệnh MUA: Theo dõi giá thấp nhất
-
-    # Cập nhật giá thấp nhất nếu giá hiện tại thấp hơn
-    IF current_market_price < lowest_price THEN
-        lowest_price = current_market_price
-
-        # Điều chỉnh giá kích hoạt xuống theo
-        new_trigger_price = current_market_price + trailing_amount
-
-        # Chỉ giảm giá kích hoạt, không tăng
-        IF new_trigger_price < current_trigger_price THEN
-            current_trigger_price = new_trigger_price
-
-            # Lưu vào database
-            UPDATE conditional_orders
-            SET current_trigger_price = current_trigger_price,
-                lowest_price = lowest_price,
-                updated_at = current_time
-            WHERE order_id = order_id
-        END IF
-    END IF
-
-    # Kiểm tra điều kiện kích hoạt: Giá tăng và chạm giá kích hoạt
-    IF current_market_price >= current_trigger_price THEN
-        trigger_order = TRUE
-    END IF
-END IF
-```
-
-**Bước 3: Kích hoạt lệnh nếu điều kiện thỏa mãn**
-
-```
-IF trigger_order == TRUE THEN
-    # Tính giá đặt lệnh con
-    IF side == "BUY" THEN
-        child_order_price = current_trigger_price + activation_price_offset
-    ELSE IF side == "SELL" THEN
-        child_order_price = current_trigger_price - activation_price_offset
-    END IF
-
-    # Nếu MTL, giá = 0 (market order)
-    IF child_order_type == "MTL" THEN
-        child_order_price = 0
-    END IF
-
-    # Validate điều kiện giao dịch
-    validation_result = VALIDATE_TRADING_CONDITIONS(
-        customer_id,
-        account_number,
-        symbol,
-        side,
-        volume,
-        child_order_price
-    )
-
-    IF validation_result.is_valid == FALSE THEN
-        # Lệnh bị từ chối
-        UPDATE conditional_orders
-        SET status = "REJECTED",
-            cancellation_reason = validation_result.reason,
-            updated_at = current_time
-        WHERE order_id = order_id
-
-        # Dừng theo dõi
-        market_data_service.unsubscribe(symbol, order_id)
-        market_monitoring_queue.remove(order_id)
-
-        # Gửi thông báo
-        SEND_NOTIFICATION(customer_id, "ORDER_REJECTED", {
-            order_id: order_id,
-            reason: validation_result.reason
-        })
-
-        RETURN
-    END IF
-
-    # Tạo lệnh con
-    child_order = CREATE_CHILD_ORDER(
-        parent_order_id: order_id,
-        customer_id: customer_id,
-        account_number: account_number,
-        symbol: symbol,
-        side: side,
-        volume: volume,
-        order_type: child_order_type,
-        price: child_order_price
-    )
-
-    # Gửi lệnh con lên sàn
-    send_result = SEND_ORDER_TO_EXCHANGE(child_order)
-
-    IF send_result.success == TRUE THEN
-        # Cập nhật trạng thái lệnh mẹ
-        UPDATE conditional_orders
-        SET status = "TRIGGERED",
-            child_order_id = child_order.order_id,
-            triggered_at = current_time,
-            updated_at = current_time
-        WHERE order_id = order_id
-
-        # Dừng theo dõi
-        market_data_service.unsubscribe(symbol, order_id)
-        market_monitoring_queue.remove(order_id)
-
-        # Gửi thông báo thành công
-        SEND_NOTIFICATION(customer_id, "ORDER_TRIGGERED", {
-            order_id: order_id,
-            child_order_id: child_order.order_id,
-            symbol: symbol,
-            side: side,
-            volume: volume,
-            price: child_order_price,
-            triggered_at: current_time
-        })
-    ELSE
-        # Gửi lệnh lên sàn thất bại
-        UPDATE conditional_orders
-        SET status = "REJECTED",
-            cancellation_reason = send_result.error_message,
-            updated_at = current_time
-        WHERE order_id = order_id
-
-        # Dừng theo dõi
-        market_data_service.unsubscribe(symbol, order_id)
-        market_monitoring_queue.remove(order_id)
-
-        # Gửi thông báo
-        SEND_NOTIFICATION(customer_id, "ORDER_REJECTED", {
-            order_id: order_id,
-            reason: send_result.error_message
-        })
-    END IF
-END IF
-```
-
-**Bước 4: Validate điều kiện giao dịch (Pseudo-code)**
-
-```
-FUNCTION VALIDATE_TRADING_CONDITIONS(customer_id, account_number, symbol, side, volume, price):
-    # Kiểm tra trạng thái tài khoản
-    account_status = GET_ACCOUNT_STATUS(account_number)
-    IF account_status != "ACTIVE" THEN
-        RETURN {is_valid: FALSE, reason: "Tài khoản không ở trạng thái hoạt động"}
-    END IF
-
-    # Kiểm tra trạng thái mã CK
-    stock_status = GET_STOCK_STATUS(symbol)
-    IF stock_status == "HALTED" OR stock_status == "SUSPENDED" THEN
-        RETURN {is_valid: FALSE, reason: "Mã chứng khoán đang bị tạm ngừng giao dịch"}
-    END IF
-
-    # Kiểm tra giá trần/sàn
-    price_limits = GET_PRICE_LIMITS(symbol)
-    IF price > 0 THEN  # Không check với MTL (price = 0)
-        IF price > price_limits.ceiling_price THEN
-            RETURN {is_valid: FALSE, reason: "Giá vượt giá trần"}
-        END IF
-        IF price < price_limits.floor_price THEN
-            RETURN {is_valid: FALSE, reason: "Giá thấp hơn giá sàn"}
-        END IF
-    END IF
-
-    # Kiểm tra sức mua/bán
-    IF side == "BUY" THEN
-        buying_power = GET_BUYING_POWER(account_number)
-        required_amount = volume * price
-
-        IF buying_power < required_amount THEN
-            RETURN {is_valid: FALSE, reason: "Sức mua không đủ"}
-        END IF
-    ELSE IF side == "SELL" THEN
-        available_volume = GET_AVAILABLE_VOLUME(account_number, symbol)
-
-        IF available_volume < volume THEN
-            RETURN {is_valid: FALSE, reason: "Khối lượng chứng khoán không đủ"}
-        END IF
-    END IF
-
-    RETURN {is_valid: TRUE, reason: null}
-END FUNCTION
-```
+**Bước 3: Kích hoạt Lệnh (nếu điều kiện thỏa mãn)**
+- Tính giá lệnh con:
+  - Lệnh MUA: `child_price = trigger_price + activation_offset`
+  - Lệnh BÁN: `child_price = trigger_price - activation_offset`
+  - Lệnh MTL: `child_price = 0` (market order)
+- Validate điều kiện giao dịch:
+  - Trạng thái tài khoản: Phải ACTIVE
+  - Trạng thái mã CK: Không bị HALTED/SUSPENDED
+  - Giá trần/sàn: Giá lệnh con không vượt giá trần/sàn
+  - Sức mua/bán: Đủ sức mua (BUY) hoặc đủ khối lượng CK (SELL)
+- Nếu validation FAIL → Cập nhật trạng thái REJECTED, gửi thông báo
+- Nếu validation OK:
+  - Tạo lệnh con và gửi lên sàn
+  - Nếu gửi thành công → Cập nhật trạng thái TRIGGERED, gửi thông báo
+  - Nếu gửi thất bại → Cập nhật trạng thái REJECTED, gửi thông báo
 
 **Business Logic:**
 
-- Giá kích hoạt chỉ được điều chỉnh theo hướng có lợi:
-  - Lệnh BÁN: Giá kích hoạt chỉ TĂNG (không giảm)
-  - Lệnh MUA: Giá kích hoạt chỉ GIẢM (không tăng)
-- Điều kiện kích hoạt:
-  - Lệnh BÁN: Giá thị trường <= Giá kích hoạt
-  - Lệnh MUA: Giá thị trường >= Giá kích hoạt
-- Giá đặt lệnh con = Giá kích hoạt ± Bước giá kích hoạt (để tăng khả năng khớp)
-- Với lệnh MTL: Không cần bước giá kích hoạt, giá = 0 (market order)
+- Giá kích hoạt chỉ được điều chỉnh theo hướng có lợi (BÁN: chỉ TĂNG, MUA: chỉ GIẢM)
+- Điều kiện kích hoạt: BÁN (giá TT ≤ giá kích hoạt), MUA (giá TT ≥ giá kích hoạt)
+- Giá lệnh con = Giá kích hoạt ± Bước giá (để tăng khả năng khớp)
+- MTL: Không cần bước giá kích hoạt
 
 **Error Handling:**
 
-- Lỗi kết nối market data: Log error, retry sau 5 giây
-- Lỗi validation: Chuyển trạng thái "REJECTED", lưu lý do, gửi thông báo
-- Lỗi gửi lệnh lên sàn: Chuyển trạng thái "REJECTED", lưu lý do, gửi thông báo
+- Lỗi market data: Log error, retry sau 5 giây
+- Lỗi validation: Trạng thái REJECTED, lưu lý do, gửi thông báo
+- Lỗi gửi lệnh: Trạng thái REJECTED, lưu lý do, gửi thông báo
 - Lỗi database: Log error, retry sau 1 giây
 
 #### OUTPUT
@@ -1140,102 +811,45 @@ END FUNCTION
 
 #### PROCESS
 
-**Thuật toán xử lý:**
+**Các bước xử lý:**
 
-**Bước 1: Validate quyền hủy lệnh**
+**Bước 1: Validate Quyền Hủy lệnh**
+- Kiểm tra lệnh tồn tại: `GET_ORDER_BY_ID(order_id)` → Nếu NULL → Error 404
+- Kiểm tra quyền sở hữu: `order.customer_id == customer_id` → Nếu khác → Error 403
+- Kiểm tra trạng thái: `order.status == "ACTIVE"` → Nếu khác → Error 400
+- Kiểm tra lock: `order.is_processing == FALSE` → Nếu TRUE → Error 409 (đang xử lý)
 
-```
-# Kiểm tra lệnh có tồn tại không
-order = GET_ORDER_BY_ID(order_id)
-IF order == NULL THEN
-    RETURN error "Không tìm thấy lệnh"
-END IF
+**Bước 2: Lock Lệnh**
+- Set `is_processing = TRUE` (trong transaction) để tránh race condition
 
-# Kiểm tra quyền sở hữu
-IF order.customer_id != customer_id THEN
-    RETURN error "Bạn không có quyền hủy lệnh này"
-END IF
+**Bước 3: Hủy Lệnh**
+- Cập nhật trạng thái → CANCELLED
+- Set `cancelled_at`, `cancellation_reason = "Cancelled by user"`
+- Unlock: Set `is_processing = FALSE`
+- Log audit trail (trong transaction)
+- Rollback nếu có lỗi
 
-# Kiểm tra trạng thái
-IF order.status != "ACTIVE" THEN
-    RETURN error "Chỉ có thể hủy lệnh đang ở trạng thái 'Chờ kích hoạt'"
-END IF
+**Bước 4: Dừng Theo dõi Market Data**
+- Unsubscribe market data: `market_data_service.unsubscribe()`
+- Xóa khỏi hàng đợi: `market_monitoring_queue.remove()`
 
-# Kiểm tra lock (tránh race condition)
-IF order.is_processing == TRUE THEN
-    RETURN error "Lệnh đang được xử lý, vui lòng thử lại sau"
-END IF
-```
-
-**Bước 2: Lock lệnh để xử lý**
-
-```
-BEGIN TRANSACTION
-    # Lock lệnh
-    UPDATE conditional_orders
-    SET is_processing = TRUE
-    WHERE order_id = order_id
-COMMIT TRANSACTION
-```
-
-**Bước 3: Hủy lệnh**
-
-```
-BEGIN TRANSACTION
-    # Cập nhật trạng thái
-    UPDATE conditional_orders
-    SET status = "CANCELLED",
-        cancelled_at = current_time,
-        cancellation_reason = "Cancelled by user",
-        updated_at = current_time,
-        is_processing = FALSE
-    WHERE order_id = order_id
-
-    # Log audit trail
-    INSERT INTO order_audit_log {
-        order_id: order_id,
-        action: "CANCEL",
-        timestamp: current_time,
-        user: customer_id,
-        details: {status: "CANCELLED", reason: "Cancelled by user"}
-    }
-COMMIT TRANSACTION
-```
-
-**Bước 4: Dừng theo dõi giá thị trường**
-
-```
-# Unsubscribe market data
-market_data_service.unsubscribe(symbol, order_id)
-
-# Xóa khỏi hàng đợi theo dõi
-market_monitoring_queue.remove(order_id)
-```
-
-**Bước 5: Gửi thông báo**
-
-```
-SEND_NOTIFICATION(customer_id, "ORDER_CANCELLED", {
-    order_id: order_id,
-    symbol: order.symbol,
-    cancelled_at: current_time
-})
-```
+**Bước 5: Gửi Thông báo**
+- Gửi notification ORDER_CANCELLED cho customer
 
 **Business Logic:**
 
-- Chỉ cho phép hủy lệnh có trạng thái "ACTIVE" (Chờ kích hoạt)
-- Sử dụng optimistic locking với flag `is_processing` để tránh race condition
-- Soft delete: Lưu lại lệnh trong database với trạng thái "CANCELLED" (không xóa hẳn)
-- Log đầy đủ audit trail cho mục đích kiểm tra sau này
+- Chỉ cho phép hủy lệnh trạng thái ACTIVE (Chờ kích hoạt)
+- Sử dụng optimistic locking (`is_processing` flag) để tránh race condition
+- Soft delete: Lưu lại lệnh với trạng thái CANCELLED (không xóa)
+- Log audit trail đầy đủ
 
 **Error Handling:**
 
-- Lỗi không tìm thấy lệnh: Trả về error 404
-- Lỗi không có quyền: Trả về error 403
-- Lỗi trạng thái không hợp lệ: Trả về error 400
-- Lỗi race condition: Trả về error 409, yêu cầu retry
-- Lỗi database: Rollback transaction, trả về error 500
+- Lỗi không tìm thấy lệnh: Error 404
+- Lỗi không có quyền: Error 403
+- Lỗi trạng thái không hợp lệ: Error 400
+- Lỗi race condition: Error 409 (retry)
+- Lỗi database: Rollback, Error 500
 
 #### OUTPUT
 
