@@ -7,7 +7,7 @@
 | Thông tin | Chi tiết |
 |-----------|----------|
 | **Tên tài liệu** | Business Requirements Document - Lệnh OCO (One Cancels the Other) |
-| **Phiên bản** | 1.1 |
+| **Phiên bản** | 1.2 |
 | **Ngày tạo** | 17/11/2025 |
 | **Người tạo** | Business Analyst |
 | **Người phê duyệt** | Product Owner |
@@ -19,6 +19,7 @@
 |-----------|------|----------------|----------------|
 | 1.0 | 17/11/2025 | Business Analyst | Phiên bản khởi tạo |
 | 1.1 | 17/11/2025 | Business Analyst | Revise: Căn chỉnh theo template, thêm IPO Limit Match, rút gọn PROCESS sections |
+| 1.2 | 17/11/2025 | Business Analyst | Loại bỏ chức năng sửa lệnh OCO theo yêu cầu nghiệp vụ |
 
 ### Danh sách phân phối
 
@@ -51,7 +52,6 @@ Tài liệu này mô tả chi tiết các yêu cầu nghiệp vụ cho tính nă
 
 **Trong phạm vi (In Scope):**
 - Tạo lệnh OCO (chiều mua và chiều bán)
-- Sửa lệnh OCO đang chờ
 - Hủy lệnh OCO
 - Theo dõi và kích hoạt tự động lệnh Stop-Limit khi điều kiện thỏa mãn
 - Hủy tự động lệnh còn lại khi một lệnh được khớp
@@ -182,11 +182,10 @@ Lệnh OCO cho phép người dùng đặt đồng thời hai lệnh điều ki�
 | US-002 | Là trader, tôi muốn đặt lệnh OCO bán để chốt lời hoặc cắt lỗ tự động | Must Have | • Nhập đầy đủ symbol, volume, Price, Stop, Limit<br>• Validate Price > giá hiện tại > Stop<br>• Validate Limit <= Stop<br>• Check đủ khối lượng trong tài khoản<br>• Tạo thành công 2 sub-orders |
 | US-003 | Là trader, tôi muốn xem danh sách tất cả lệnh OCO đang active để theo dõi | Must Have | • Hiển thị bảng danh sách lệnh OCO<br>• Filter theo symbol, status, date range<br>• Hiển thị đầy đủ thông tin: symbol, side, prices, status<br>• Real-time update khi có thay đổi |
 | US-004 | Là trader, tôi muốn hủy lệnh OCO trước khi khớp để thay đổi chiến lược | Must Have | • Button "Hủy" trên từng lệnh OCO<br>• Confirm popup trước khi hủy<br>• Hủy thành công cả 2 sub-orders<br>• Update status sang "Cancelled"<br>• Notification hủy thành công |
-| US-005 | Là trader, tôi muốn sửa giá lệnh OCO đang chờ để điều chỉnh theo thị trường | Should Have | • Button "Sửa" cho lệnh Pending<br>• Cho phép sửa Price, Stop, Limit (không sửa symbol, volume)<br>• Re-validate tất cả điều kiện<br>• Update thành công<br>• Notification cập nhật thành công |
-| US-006 | Là trader, tôi muốn nhận thông báo khi lệnh OCO được khớp hoặc hủy | Must Have | • Push notification khi Limit Order khớp<br>• Push notification khi Stop-Limit kích hoạt<br>• Push notification khi Stop-Limit khớp<br>• Email notification (optional setting)<br>• In-app notification history |
-| US-007 | Là trader, tôi muốn xem chi tiết lịch sử lệnh OCO để review chiến lược | Should Have | • Màn hình Order History bao gồm OCO orders<br>• Chi tiết đầy đủ: thời gian tạo, khớp, hủy<br>• Thông tin giá tại thời điểm khớp<br>• Export history ra CSV |
-| US-008 | Là operations manager, tôi muốn có audit log đầy đủ cho các lệnh OCO để compliance | Must Have | • Log tất cả hành động: create, update, cancel, match<br>• Log bao gồm: user_id, timestamp, action, old_value, new_value<br>• Immutable audit trail<br>• Có thể query theo user, date, order_id |
-| US-009 | Là system admin, tôi muốn monitor performance của OCO matching engine | Should Have | • Dashboard hiển thị số lệnh OCO active<br>• Latency của stop trigger detection<br>• Failed orders và error rate<br>• Alert khi performance degradation |
+| US-005 | Là trader, tôi muốn nhận thông báo khi lệnh OCO được khớp hoặc hủy | Must Have | • Push notification khi Limit Order khớp<br>• Push notification khi Stop-Limit kích hoạt<br>• Push notification khi Stop-Limit khớp<br>• Email notification (optional setting)<br>• In-app notification history |
+| US-006 | Là trader, tôi muốn xem chi tiết lịch sử lệnh OCO để review chiến lược | Should Have | • Màn hình Order History bao gồm OCO orders<br>• Chi tiết đầy đủ: thời gian tạo, khớp, hủy<br>• Thông tin giá tại thời điểm khớp<br>• Export history ra CSV |
+| US-007 | Là operations manager, tôi muốn có audit log đầy đủ cho các lệnh OCO để compliance | Must Have | • Log tất cả hành động: create, cancel, match<br>• Log bao gồm: user_id, timestamp, action, old_value, new_value<br>• Immutable audit trail<br>• Có thể query theo user, date, order_id |
+| US-008 | Là system admin, tôi muốn monitor performance của OCO matching engine | Should Have | • Dashboard hiển thị số lệnh OCO active<br>• Latency của stop trigger detection<br>• Failed orders và error rate<br>• Alert khi performance degradation |
 
 ### 4.3 Yêu cầu chi tiết
 
@@ -324,39 +323,6 @@ Lệnh OCO cho phép người dùng đặt đồng thời hai lệnh điều ki�
 | Market status | Thị trường đang mở cửa (hoặc ATO/ATC) | "Không thể hủy lệnh ngoài giờ giao dịch" |
 | User permission | User phải là owner của lệnh | "Không có quyền hủy lệnh này" |
 
-#### 4.3.5 Chức năng 5: Sửa lệnh OCO
-
-**Mô tả**: Cho phép người dùng sửa các tham số giá của lệnh OCO đang pending
-
-**Độ ưu tiên**: Should Have
-
-**Luồng nghiệp vụ**:
-1. User click "Sửa" trên lệnh OCO
-2. Hiển thị form với giá trị hiện tại
-3. User chỉnh sửa Price, Stop, hoặc Limit
-4. Hệ thống validate lại tất cả business rules
-5. Hủy Limit Order cũ và Stop-Limit Order cũ
-6. Tạo Limit Order mới và Stop-Limit Order mới với giá mới
-7. Giữ nguyên order_id và thông tin khác
-8. Update trạng thái
-9. Gửi notification
-10. Ghi audit log
-
-**Business Rules**:
-- BR-021: Chỉ cho phép sửa lệnh ở trạng thái "Pending"
-- BR-022: Không cho phép sửa symbol và volume
-- BR-023: Giá mới phải thỏa mãn tất cả validation rules như khi tạo mới
-- BR-024: Nếu việc sửa thất bại → Giữ nguyên lệnh cũ
-
-**Validation Rules**:
-
-| Trường | Quy tắc | Thông báo lỗi |
-|--------|---------|---------------|
-| Order status | Phải là Pending | "Chỉ có thể sửa lệnh đang chờ khớp" |
-| Price | Thỏa mãn BR-001 hoặc BR-006 tùy side | "Giá Price không hợp lệ" |
-| Stop | Thỏa mãn BR-002 hoặc BR-007 tùy side | "Giá Stop không hợp lệ" |
-| Limit | Thỏa mãn BR-003 hoặc BR-008 tùy side | "Giá Limit không hợp lệ" |
-
 ### 4.4 Quy tắc nghiệp vụ tổng quát
 
 | ID | Quy tắc | Hành động khi vi phạm |
@@ -381,14 +347,10 @@ Lệnh OCO cho phép người dùng đặt đồng thời hai lệnh điều ki�
 | BR-018 | Không hủy được lệnh Filled/Rejected | Từ chối request |
 | BR-019 | Một sub-order filled → Hủy sub-order còn lại | Tự động hủy, gửi notification |
 | BR-020 | Cancel phải atomic cho cả 2 sub-orders | Rollback nếu một cái fail |
-| BR-021 | Chỉ sửa được lệnh Pending | Từ chối request |
-| BR-022 | Không sửa được symbol và volume | Disable fields trong UI |
-| BR-023 | Giá mới phải validate như tạo mới | Reject với validation error |
-| BR-024 | Sửa thất bại → Giữ nguyên lệnh cũ | Rollback transaction |
-| BR-025 | Một symbol chỉ có tối đa 10 lệnh OCO active | Từ chối tạo mới, thông báo "Vượt quá giới hạn lệnh" |
-| BR-026 | OCO order expiry: End of trading day (EOD) | Tự động hủy lệnh chưa khớp vào cuối phiên |
-| BR-027 | Matching priority: Time priority | FIFO - First In First Out |
-| BR-028 | Market halted → Pause trigger monitoring | Resume khi market mở lại |
+| BR-021 | Một symbol chỉ có tối đa 10 lệnh OCO active | Từ chối tạo mới, thông báo "Vượt quá giới hạn lệnh" |
+| BR-022 | OCO order expiry: End of trading day (EOD) | Tự động hủy lệnh chưa khớp vào cuối phiên |
+| BR-023 | Matching priority: Time priority | FIFO - First In First Out |
+| BR-024 | Market halted → Pause trigger monitoring | Resume khi market mở lại |
 
 ### 4.5 Workflow & Process Flow
 
@@ -511,18 +473,7 @@ Write Audit Log
 | order_source | System | Enum | Có | "WEB", "MOBILE", "API" | "WEB" |
 | created_at | System | Timestamp | Có | ISO 8601 format | Server timestamp |
 
-#### 5.1.2 Input cho sửa lệnh OCO
-
-| Trường Input | Nguồn | Kiểu dữ liệu | Bắt buộc | Validation | Giá trị mặc định |
-|--------------|-------|--------------|----------|------------|------------------|
-| oco_order_id | User/System | String | Có | UUID, must exist | - |
-| price | User | Decimal | Không | > 0, validate theo side | Giữ nguyên giá cũ |
-| stop_price | User | Decimal | Không | > 0, validate theo side | Giữ nguyên giá cũ |
-| limit_price | User | Decimal | Không | > 0, validate theo side | Giữ nguyên giá cũ |
-| updated_by | System | String | Có | UUID format | Current user |
-| updated_at | System | Timestamp | Có | ISO 8601 format | Server timestamp |
-
-#### 5.1.3 Input cho hủy lệnh OCO
+#### 5.1.2 Input cho hủy lệnh OCO
 
 | Trường Input | Nguồn | Kiểu dữ liệu | Bắt buộc | Validation | Giá trị mặc định |
 |--------------|-------|--------------|----------|------------|------------------|
@@ -1197,7 +1148,7 @@ Lệnh Stop-Limit đã được kích hoạt
 
 **Tên màn hình**: OCO Order Management
 
-**Mục đích**: Hiển thị danh sách lệnh OCO, cho phép filter, view details, cancel, edit
+**Mục đích**: Hiển thị danh sách lệnh OCO, cho phép filter, view details, cancel
 
 **Layout**:
 ```
@@ -1206,12 +1157,12 @@ Lệnh Stop-Limit đã được kích hoạt
 +------------------------------------------------------------------+
 |  Filter: Mã CK [________] | Trạng thái [All ▼] | Từ ngày [__] Đến [__] [Tìm kiếm] |
 +------------------------------------------------------------------+
-|  ID Lệnh    | Mã CK | Loại | Khối lượng | Giá Price | Stop | Limit | Trạng thái | Ngày tạo      | Actions       |
-|-------------|-------|------|------------|-----------|------|-------|------------|---------------|---------------|
-| OCO-001234  | VN30  | Mua  | 500        | 40,000    |42,000|42,500 | Pending    | 17/11 10:30  | [Xem][Sửa][Hủy] |
-| OCO-001235  | VCB   | Bán  | 300        | 95,000    |90,000|89,500 | Stop Trig. | 17/11 09:15  | [Xem][Hủy]      |
-| OCO-001236  | FPT   | Mua  | 1,000      | 68,000    |70,000|70,200 | Filled     | 16/11 14:20  | [Xem]           |
-| OCO-001237  | VHM   | Bán  | 500        | 82,000    |78,000|77,800 | Cancelled  | 16/11 11:05  | [Xem]           |
+|  ID Lệnh    | Mã CK | Loại | Khối lượng | Giá Price | Stop | Limit | Trạng thái | Ngày tạo      | Actions    |
+|-------------|-------|------|------------|-----------|------|-------|------------|---------------|------------|
+| OCO-001234  | VN30  | Mua  | 500        | 40,000    |42,000|42,500 | Pending    | 17/11 10:30  | [Xem][Hủy] |
+| OCO-001235  | VCB   | Bán  | 300        | 95,000    |90,000|89,500 | Stop Trig. | 17/11 09:15  | [Xem][Hủy] |
+| OCO-001236  | FPT   | Mua  | 1,000      | 68,000    |70,000|70,200 | Filled     | 16/11 14:20  | [Xem]      |
+| OCO-001237  | VHM   | Bán  | 500        | 82,000    |78,000|77,800 | Cancelled  | 16/11 11:05  | [Xem]      |
 |-------------|-------|------|------------|-----------|------|-------|------------|---------------|---------------|
 |  Trang 1 / 8                                   [< Prev]  [Next >]                                                |
 +------------------------------------------------------------------+
@@ -1230,11 +1181,10 @@ Lệnh Stop-Limit đã được kích hoạt
 | Limit | Decimal | Có | Không | Giá Limit sau khi trigger |
 | Trạng thái | String | Có | Có | Badge với màu khác nhau |
 | Ngày tạo | Datetime | Có | Có | Format: DD/MM HH:mm |
-| Actions | Buttons | Không | Không | Xem, Sửa, Hủy |
+| Actions | Buttons | Không | Không | Xem, Hủy |
 
 **Actions trên dòng**:
 - **Xem**: Mở dialog hiển thị chi tiết đầy đủ lệnh OCO (cả 2 sub-orders, history, audit log)
-- **Sửa**: Chỉ hiển thị nếu status = "Pending", mở form sửa giá
 - **Hủy**: Chỉ hiển thị nếu status = "Pending" hoặc "Partially Filled", confirm trước khi hủy
 
 **Pagination**:
@@ -1400,7 +1350,7 @@ Lệnh Stop-Limit đã được kích hoạt
 - Tối đa 10 lệnh OCO active cho một symbol/user
 - Lệnh OCO tự động hủy vào End of Day (EOD) nếu chưa khớp
 - Không hỗ trợ OCO cho margin trading trong phase 1
-- Không hỗ trợ modify volume (chỉ cho phép modify prices)
+- Không hỗ trợ sửa đổi lệnh OCO sau khi tạo (user phải hủy và tạo lại)
 
 **Technical Constraints:**
 - Phải tích hợp với matching engine hiện tại (không thay đổi core matching logic)
