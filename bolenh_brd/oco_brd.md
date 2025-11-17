@@ -7,7 +7,7 @@
 | Thông tin | Chi tiết |
 |-----------|----------|
 | **Tên tài liệu** | Business Requirements Document - Lệnh OCO (One Cancels the Other) |
-| **Phiên bản** | 1.0 |
+| **Phiên bản** | 1.1 |
 | **Ngày tạo** | 17/11/2025 |
 | **Người tạo** | Business Analyst |
 | **Người phê duyệt** | Product Owner |
@@ -18,6 +18,7 @@
 | Phiên bản | Ngày | Người thay đổi | Mô tả thay đổi |
 |-----------|------|----------------|----------------|
 | 1.0 | 17/11/2025 | Business Analyst | Phiên bản khởi tạo |
+| 1.1 | 17/11/2025 | Business Analyst | Revise: Căn chỉnh theo template, thêm IPO Limit Match, rút gọn PROCESS sections |
 
 ### Danh sách phân phối
 
@@ -617,199 +618,78 @@ Write Audit Log
 | symbol_info | Thông tin mã CK | Symbol master data | {trading_status, price_ceiling, price_floor, ...} |
 | active_oco_count | Số lệnh OCO đang active cho symbol | Database query | 3 |
 
+**Context Data:**
+- User session information (user_id, account_id, session_id)
+- Trading session status (is_market_open, session_type)
+- System timestamp
+
 #### PROCESS
 
-**Thuật toán xử lý:**
+**Mô tả nghiệp vụ:** Tạo lệnh OCO Mua với validation đầy đủ, reserve buying power, tạo 2 sub-orders và bắt đầu monitoring
 
-```
-Bước 1: Validate Input Data
-    IF symbol NOT IN valid_symbols THEN
-        RETURN error "VAL-001: Mã chứng khoán không hợp lệ"
-    END IF
+**Các bước xử lý:**
 
-    IF volume <= 0 OR volume % 100 != 0 THEN
-        RETURN error "VAL-002: Khối lượng không hợp lệ"
-    END IF
+1. **Validate Input Data**
+   - Kiểm tra symbol có hợp lệ và đang giao dịch
+   - Kiểm tra volume > 0, là bội số 100
+   - Kiểm tra tất cả giá > 0 và có 2 chữ số thập phân
+   - Nếu vi phạm → Trả về lỗi tương ứng theo validation rules (VAL-001 đến VAL-003)
 
-    IF price <= 0 OR stop_price <= 0 OR limit_price <= 0 THEN
-        RETURN error "VAL-003: Giá phải lớn hơn 0"
-    END IF
+2. **Validate Business Rules cho OCO Buy**
+   - Lấy giá thị trường hiện tại từ market data feed
+   - Kiểm tra điều kiện: Price < Current Market Price < Stop Price
+   - Kiểm tra: Limit Price >= Stop Price
+   - Kiểm tra tất cả giá trong biên độ dao động cho phép
+   - Nếu vi phạm → Trả về lỗi business rules (BR-001 đến BR-004, VAL-004)
 
-Bước 2: Validate Business Rules cho OCO Buy
-    current_price = get_current_market_price(symbol)
+3. **Check Trading Session và Order Limit**
+   - Kiểm tra đang trong giờ giao dịch
+   - Kiểm tra số lệnh OCO active cho symbol < 10
+   - Kiểm tra account status = ACTIVE
+   - Nếu vi phạm → Trả về lỗi VAL-013, VAL-014, VAL-015
 
-    IF price >= current_price THEN
-        RETURN error "BR-001: Giá Price phải nhỏ hơn giá thị trường"
-    END IF
+4. **Check Buying Power**
+   - Lấy available_cash từ account service
+   - Tính required_cash = volume × max(price, limit_price)
+   - So sánh available_cash >= required_cash
+   - Nếu không đủ → Trả về lỗi VAL-011 với số tiền cần thiết
 
-    IF stop_price <= current_price THEN
-        RETURN error "BR-002: Giá Stop phải lớn hơn giá thị trường"
-    END IF
+5. **Create OCO Master Order và Sub-orders**
+   - Begin database transaction
+   - Tạo OCO Master Order với status PENDING
+   - Tạo Limit Order với giá = price, status = PENDING
+   - Tạo Stop-Limit Order với stop_price, limit_price, status = PENDING_TRIGGER
+   - Insert vào database
+   - Nếu lỗi database → Rollback, trả về lỗi hệ thống
 
-    IF limit_price < stop_price THEN
-        RETURN error "BR-003: Giá Limit phải >= Stop"
-    END IF
+6. **Submit Limit Order to Matching Engine**
+   - Gửi Limit Order vào matching engine
+   - Nếu thành công → Tiếp tục
+   - Nếu thất bại → Rollback transaction, trả về lỗi ERR-OCO-010
 
-    IF NOT (price < current_price < stop_price) THEN
-        RETURN error "BR-004: Điều kiện Price < Market < Stop không thỏa mãn"
-    END IF
+7. **Reserve Buying Power và Finalize**
+   - Reserve cash = required_cash trong account
+   - Update available_cash, reserved_cash
+   - Commit database transaction
+   - Register price monitoring cho Stop-Limit trigger
+   - Send notification cho user
+   - Write audit log
 
-Bước 3: Validate Price Range (Biên độ dao động)
-    symbol_info = get_symbol_info(symbol)
-    price_ceiling = symbol_info.price_ceiling
-    price_floor = symbol_info.price_floor
+8. **Return Success Response**
+   - Trả về OCO order details với đầy đủ thông tin 2 sub-orders
+   - Include: oco_order_id, status, symbol, volume, prices, created_at
 
-    IF price < price_floor OR price > price_ceiling THEN
-        RETURN error "VAL-004: Giá Price vượt biên độ"
-    END IF
-
-    IF stop_price > price_ceiling THEN
-        RETURN error "VAL-004: Giá Stop vượt biên độ"
-    END IF
-
-    IF limit_price > price_ceiling THEN
-        RETURN error "VAL-004: Giá Limit vượt biên độ"
-    END IF
-
-Bước 4: Check Trading Session
-    IF NOT is_trading_session_active() THEN
-        RETURN error "VAL-014: Ngoài giờ giao dịch"
-    END IF
-
-Bước 5: Check Order Limit
-    IF active_oco_count >= 10 THEN
-        RETURN error "VAL-013: Vượt quá giới hạn 10 lệnh OCO"
-    END IF
-
-Bước 6: Check Buying Power
-    account_info = get_account_info(user_id)
-    available_cash = account_info.available_cash
-
-    required_cash = volume × MAX(price, limit_price)
-
-    IF available_cash < required_cash THEN
-        RETURN error "VAL-011: Không đủ sức mua. Cần " + required_cash + " VNĐ"
-    END IF
-
-Bước 7: Begin Database Transaction
-    BEGIN TRANSACTION
-
-Bước 8: Create OCO Master Order
-    oco_order_id = generate_oco_order_id()  // Format: OCO-YYYYMMDD-NNNNNN
-
-    oco_master = {
-        oco_order_id: oco_order_id,
-        user_id: user_id,
-        account_id: account_id,
-        symbol: symbol,
-        side: "BUY",
-        volume: volume,
-        filled_volume: 0,
-        status: "PENDING",
-        created_at: current_timestamp,
-        updated_at: current_timestamp
-    }
-
-    INSERT INTO oco_orders (oco_master)
-
-Bước 9: Create Limit Order (Sub-order 1)
-    limit_order_id = generate_order_id()  // Format: LO-YYYYMMDD-NNNNNN-1
-
-    limit_order = {
-        order_id: limit_order_id,
-        oco_order_id: oco_order_id,
-        order_type: "LIMIT",
-        symbol: symbol,
-        side: "BUY",
-        volume: volume,
-        price: price,
-        status: "PENDING",
-        created_at: current_timestamp
-    }
-
-    INSERT INTO orders (limit_order)
-
-Bước 10: Submit Limit Order to Order Book
-    result = submit_to_matching_engine(limit_order)
-
-    IF result.status != "SUCCESS" THEN
-        ROLLBACK TRANSACTION
-        RETURN error "Không thể gửi Limit Order vào hệ thống khớp lệnh"
-    END IF
-
-Bước 11: Create Stop-Limit Order (Sub-order 2)
-    stop_limit_order_id = generate_order_id()  // Format: SL-YYYYMMDD-NNNNNN-2
-
-    stop_limit_order = {
-        order_id: stop_limit_order_id,
-        oco_order_id: oco_order_id,
-        order_type: "STOP_LIMIT",
-        symbol: symbol,
-        side: "BUY",
-        volume: volume,
-        stop_price: stop_price,
-        limit_price: limit_price,
-        status: "PENDING_TRIGGER",  // Chưa gửi vào matching engine
-        trigger_condition: "MARKET_PRICE >= STOP_PRICE",
-        created_at: current_timestamp
-    }
-
-    INSERT INTO orders (stop_limit_order)
-
-Bước 12: Reserve Buying Power
-    reserved_amount = volume × MAX(price, limit_price)
-
-    UPDATE accounts
-    SET available_cash = available_cash - reserved_amount,
-        reserved_cash = reserved_cash + reserved_amount
-    WHERE account_id = account_id
-
-Bước 13: Commit Transaction
-    COMMIT TRANSACTION
-
-Bước 14: Start Market Monitoring for Stop Trigger
-    register_price_monitor(
-        order_id: stop_limit_order_id,
-        symbol: symbol,
-        trigger_condition: "MARKET_PRICE >= " + stop_price
-    )
-
-Bước 15: Send Notification
-    notification = {
-        user_id: user_id,
-        type: "OCO_ORDER_CREATED",
-        message: "Lệnh OCO " + oco_order_id + " đã được tạo thành công",
-        data: {oco_order_id, symbol, volume, ...}
-    }
-    send_notification(notification)
-
-Bước 16: Write Audit Log
-    audit_log = {
-        event_type: "OCO_ORDER_CREATED",
-        user_id: user_id,
-        oco_order_id: oco_order_id,
-        details: {symbol, side, volume, price, stop_price, limit_price},
-        timestamp: current_timestamp,
-        ip_address: user_ip
-    }
-    write_audit_log(audit_log)
-
-Bước 17: Return Success Response
-    RETURN {
-        status: "SUCCESS",
-        oco_order_id: oco_order_id,
-        limit_order: limit_order,
-        stop_limit_order: stop_limit_order,
-        message: "Lệnh OCO đã được tạo thành công"
-    }
-```
+**Business Logic:**
+- Buying power calculation: Sử dụng max(price, limit_price) để reserve đủ tiền cho cả 2 trường hợp
+- Transaction atomicity: Tất cả bước phải thành công, nếu fail 1 bước → rollback toàn bộ
+- Price validation: Đảm bảo giá nằm trong biên độ và thỏa mãn logic OCO Buy
 
 **Error Handling:**
-- **Database Error**: Rollback transaction, log error, return "Lỗi hệ thống, vui lòng thử lại"
-- **Matching Engine Timeout**: Rollback transaction, retry 3 lần với exponential backoff, nếu fail → return error
-- **Insufficient Balance**: Return error ngay sau validation
-- **Market Halted**: Queue order, process khi market mở lại
-- **Duplicate Order ID**: Retry generate new ID, max 5 lần
+- Database error → Rollback transaction, log error, return "Lỗi hệ thống, vui lòng thử lại"
+- Matching engine timeout → Retry 3 lần với exponential backoff, nếu fail → rollback và return error
+- Insufficient balance → Return error ngay sau validation step 4
+- Market halted → Queue order, process khi market mở lại
+- Duplicate order ID → Retry generate new ID, max 5 lần
 
 #### OUTPUT
 
@@ -861,7 +741,168 @@ Bước 17: Return Success Response
 | ERR-OCO-010 | Matching engine error | 500 | "Lỗi hệ thống khớp lệnh. Vui lòng thử lại sau" |
 | ERR-OCO-011 | Database error | 500 | "Lỗi hệ thống. Vui lòng thử lại sau" |
 
-### 6.2 IPO Flow cho Kích hoạt Stop-Limit Order
+**Side Effects:**
+- OCO Master Order record created trong database
+- 2 Sub-order records created (Limit và Stop-Limit)
+- Buying power reserved trong account
+- Price monitoring registered cho Stop-Limit trigger
+- Notification sent cho user
+- Audit log written
+
+### 6.2 IPO Flow cho Limit Order Matched → Cancel Stop-Limit
+
+#### INPUT
+
+**Matching Engine Event:**
+| Tham số | Mô tả | Nguồn | Ví dụ |
+|---------|-------|-------|-------|
+| order_id | ID của lệnh vừa khớp | Matching engine | "LO-20251117-001234-1" |
+| matched_volume | Khối lượng khớp | Matching engine | 500 |
+| matched_price | Giá khớp | Matching engine | 40000.00 |
+| match_timestamp | Thời điểm khớp | Matching engine | "2025-11-17T11:15:30.123Z" |
+| match_type | Loại khớp | Matching engine | "FULL" / "PARTIAL" |
+
+**System Input:**
+| Tham số | Mô tả | Nguồn | Ví dụ |
+|---------|-------|-------|-------|
+| order_details | Chi tiết lệnh vừa khớp | Database query | {order_id, oco_order_id, order_type, volume, ...} |
+| oco_master | OCO Master Order | Database query | {oco_order_id, status, user_id, ...} |
+| stop_limit_order | Stop-Limit Order còn lại | Database query | {order_id, status, ...} |
+
+**Context Data:**
+- Transaction ID
+- System timestamp
+- User information
+
+#### PROCESS
+
+**Mô tả nghiệp vụ:** Khi Limit Order của lệnh OCO được khớp (full hoặc partial), hệ thống tự động hủy Stop-Limit Order còn lại, update trạng thái OCO, release resources và thông báo user
+
+**Các bước xử lý:**
+
+1. **Receive Order Match Event**
+   - Nhận event từ matching engine khi có lệnh khớp
+   - Parse order_id, matched_volume, matched_price, match_type
+   - Log event nhận được
+
+2. **Check if Order Belongs to OCO**
+   - Query database để lấy order details
+   - Kiểm tra order có thuộc OCO không (oco_order_id != null)
+   - Nếu không thuộc OCO → End process, không xử lý gì thêm
+   - Nếu thuộc OCO → Tiếp tục
+
+3. **Validate OCO Status**
+   - Query OCO Master Order theo oco_order_id
+   - Kiểm tra OCO status = PENDING hoặc PARTIALLY_FILLED
+   - Nếu status = CANCELLED/FILLED/REJECTED → End process (đã xử lý rồi)
+   - Nếu status hợp lệ → Tiếp tục
+
+4. **Determine Match Completion**
+   - Kiểm tra match_type = FULL (khớp hết) hay PARTIAL (khớp một phần)
+   - Nếu PARTIAL:
+     - Update filled_volume trong OCO Master
+     - Update OCO status = PARTIALLY_FILLED
+     - End process, giữ nguyên Stop-Limit Order
+   - Nếu FULL → Tiếp tục xử lý cancel Stop-Limit
+
+5. **Get Stop-Limit Order to Cancel**
+   - Query Stop-Limit Order còn lại theo oco_order_id
+   - Kiểm tra Stop-Limit status = PENDING_TRIGGER hoặc PENDING
+   - Nếu không tìm thấy hoặc status không hợp lệ → Log warning, tiếp tục update OCO status
+
+6. **Cancel Stop-Limit Order**
+   - Begin database transaction
+   - Nếu Stop-Limit đã được submit vào matching engine → Gửi cancel request
+   - Nếu Stop-Limit đang PENDING_TRIGGER → Chỉ update status trong database
+   - Update Stop-Limit status = CANCELLED
+   - Set cancellation_reason = "OCO - Limit Order matched"
+   - Set cancelled_at = current_timestamp
+   - Nếu cancel matching engine thất bại → Log error, vẫn update database (best effort)
+
+7. **Update OCO Master Order**
+   - Update OCO status = FILLED
+   - Update filled_volume = total matched volume
+   - Update filled_at = match_timestamp
+   - Update matched_price = matched_price
+   - Commit database transaction
+
+8. **Release Reserved Resources**
+   - Nếu là OCO BUY → Release reserved cash chưa dùng
+   - Nếu là OCO SELL → Release held volume
+   - Update account balance
+
+9. **Send Notifications**
+   - Send notification "Lệnh OCO đã khớp hoàn toàn" cho user
+   - Include: symbol, matched_price, matched_volume, total_value
+   - Send push notification, email (nếu user bật setting)
+
+10. **Write Audit Log**
+    - Log event: OCO_LIMIT_MATCHED_STOP_CANCELLED
+    - Include: oco_order_id, limit_order_id, stop_limit_order_id, matched_price, matched_volume
+    - Timestamp, user_id, transaction_id
+
+**Business Logic:**
+- Chỉ cancel Stop-Limit khi Limit Order khớp FULL, không cancel khi PARTIAL
+- Cancel là best-effort: Nếu cancel matching engine fail, vẫn update database và notify user
+- Transaction isolation: Đảm bảo không có race condition khi 2 orders cùng khớp
+- Resource cleanup: Release reserved cash/volume ngay sau khi khớp
+
+**Error Handling:**
+- Cancel matching engine failed → Log error, continue với database update, alert ops team
+- Database error → Retry transaction 3 lần, nếu fail → Alert critical, manual intervention
+- OCO not found hoặc status invalid → Log warning, end process gracefully
+- Race condition (cả 2 orders cùng khớp) → Sử dụng database lock, xử lý theo thứ tự timestamp
+
+#### OUTPUT
+
+**Success Side Effects:**
+- Limit Order status = FILLED trong database
+- Stop-Limit Order status = CANCELLED trong database
+- OCO Master status = FILLED
+- Reserved resources released (cash hoặc volume)
+- User notification sent
+- Audit log written
+
+**Event Published:**
+```json
+{
+  "event_type": "OCO_LIMIT_MATCHED_STOP_CANCELLED",
+  "oco_order_id": "OCO-20251117-001234",
+  "limit_order_id": "LO-20251117-001234-1",
+  "stop_limit_order_id": "SL-20251117-001234-2",
+  "symbol": "VN30F2312",
+  "side": "BUY",
+  "matched_price": 40000.00,
+  "matched_volume": 500,
+  "total_value": 20000000.00,
+  "matched_at": "2025-11-17T11:15:30.123Z",
+  "user_id": "user-12345",
+  "account_id": "account-67890"
+}
+```
+
+**Notification Message:**
+```
+Lệnh OCO đã khớp thành công
+- Mã CK: VN30F2312
+- Loại: Mua
+- Khối lượng: 500
+- Giá khớp: 40,000 VNĐ
+- Tổng giá trị: 20,000,000 VNĐ
+- Lệnh Stop-Limit đã được tự động hủy
+```
+
+**Error Scenarios:**
+
+| Scenario | Handling | Alert Level |
+|----------|----------|-------------|
+| Stop-Limit cancel failed (matching engine) | Log error, update database anyway, notify user | Warning |
+| Database update failed | Retry 3 lần, alert ops team, queue for manual fix | Critical |
+| OCO already processed | Log warning, end gracefully | Info |
+| Race condition detected | Use optimistic locking, retry | Warning |
+| Notification service down | Queue notification for retry | Low |
+
+### 6.3 IPO Flow cho Kích hoạt Stop-Limit Order
 
 #### INPUT
 
@@ -877,154 +918,91 @@ Bước 17: Return Success Response
 |---------|-------|-------|-------|
 | pending_stop_orders | Danh sách Stop-Limit orders chờ trigger | Database query | [{order_id, stop_price, side, ...}] |
 
+**Context Data:**
+- Market session status
+- System health metrics
+
 #### PROCESS
 
-```
-Bước 1: Receive Price Tick Event
-    price_event = {
-        symbol: symbol,
-        price: new_price,
-        timestamp: tick_timestamp
-    }
+**Mô tả nghiệp vụ:** Hệ thống monitoring giá thị trường real-time, khi giá chạm điều kiện trigger của Stop-Limit Order, tự động hủy Limit Order và kích hoạt Stop-Limit Order
 
-Bước 2: Query Pending Stop-Limit Orders
-    pending_orders = SELECT * FROM orders
-                     WHERE order_type = 'STOP_LIMIT'
-                     AND status = 'PENDING_TRIGGER'
-                     AND symbol = price_event.symbol
-                     ORDER BY created_at ASC  // FIFO
+**Các bước xử lý:**
 
-Bước 3: Check Trigger Condition for Each Order
-    FOR EACH stop_order IN pending_orders DO
-        triggered = FALSE
+1. **Receive Price Tick Event**
+   - Nhận price update từ market data feed
+   - Extract symbol, price, timestamp
+   - Validate data integrity
 
-        IF stop_order.side = "BUY" THEN
-            IF new_price >= stop_order.stop_price THEN
-                triggered = TRUE
-            END IF
-        ELSE IF stop_order.side = "SELL" THEN
-            IF new_price <= stop_order.stop_price THEN
-                triggered = TRUE
-            END IF
-        END IF
+2. **Query Pending Stop-Limit Orders**
+   - Query tất cả Stop-Limit Orders theo symbol
+   - Filter status = PENDING_TRIGGER
+   - Order by created_at ASC (FIFO priority)
 
-        IF triggered = TRUE THEN
-            process_stop_trigger(stop_order, new_price)
-        END IF
-    END FOR
+3. **Check Trigger Condition for Each Order**
+   - Với mỗi Stop-Limit Order, kiểm tra điều kiện trigger:
+     - OCO Mua: Trigger khi market_price >= stop_price
+     - OCO Bán: Trigger khi market_price <= stop_price
+   - Nếu thỏa mãn → Đánh dấu để xử lý trigger
+   - Nếu không thỏa mãn → Bỏ qua
 
-Bước 4: Process Stop Trigger (function)
-    FUNCTION process_stop_trigger(stop_order, trigger_price)
-        BEGIN TRANSACTION
+4. **Validate OCO Status Before Trigger**
+   - Với mỗi order cần trigger, query OCO Master
+   - Kiểm tra OCO status = PENDING
+   - Nếu status khác (CANCELLED/FILLED) → Bỏ qua, không trigger
+   - Nếu status hợp lệ → Tiếp tục
 
-        // 4.1: Get OCO Master Order
-        oco_order = SELECT * FROM oco_orders
-                    WHERE oco_order_id = stop_order.oco_order_id
+5. **Cancel Limit Order**
+   - Begin database transaction
+   - Query Limit Order (sub-order còn lại) theo oco_order_id
+   - Gửi cancel request đến matching engine
+   - Nếu cancel thành công → Update Limit Order status = CANCELLED
+   - Nếu cancel thất bại → Rollback transaction, log error, không trigger Stop-Limit
 
-        IF oco_order.status != "PENDING" THEN
-            ROLLBACK TRANSACTION
-            RETURN  // OCO đã bị hủy hoặc filled rồi
-        END IF
+6. **Activate Stop-Limit Order**
+   - Update Stop-Limit Order status từ PENDING_TRIGGER → PENDING
+   - Set activated_at = current_timestamp
+   - Set trigger_price_actual = current market price
+   - Submit Stop-Limit vào matching engine như Limit Order với price = limit_price
 
-        // 4.2: Get Limit Order (sub-order còn lại)
-        limit_order = SELECT * FROM orders
-                      WHERE oco_order_id = stop_order.oco_order_id
-                      AND order_type = "LIMIT"
-                      AND status IN ("PENDING", "PARTIALLY_FILLED")
+7. **Update OCO Master Status**
+   - Update OCO status = STOP_TRIGGERED
+   - Update triggered_at = timestamp
+   - Update trigger_price = actual trigger price
+   - Commit database transaction
 
-        // 4.3: Cancel Limit Order
-        IF limit_order EXISTS THEN
-            cancel_result = cancel_order_in_matching_engine(limit_order.order_id)
+8. **Send Notification**
+   - Send notification "Stop-Limit đã được kích hoạt" cho user
+   - Include: symbol, trigger_price, limit_price submitted
+   - Push notification + email (optional)
 
-            IF cancel_result.status != "SUCCESS" THEN
-                ROLLBACK TRANSACTION
-                log_error("Failed to cancel Limit Order: " + limit_order.order_id)
-                RETURN
-            END IF
+9. **Write Audit Log**
+   - Log event: OCO_STOP_TRIGGERED
+   - Include: oco_order_id, trigger_price, limit_price, timestamp
 
-            UPDATE orders
-            SET status = "CANCELLED",
-                cancelled_at = current_timestamp,
-                cancellation_reason = "OCO - Stop-Limit triggered"
-            WHERE order_id = limit_order.order_id
-        END IF
+10. **Monitor Performance**
+    - Measure latency từ price tick đến trigger completion
+    - Nếu > 100ms → Log warning, alert ops team
+    - Track trigger accuracy rate
 
-        // 4.4: Activate Stop-Limit Order (convert to regular Limit Order)
-        UPDATE orders
-        SET status = "PENDING",
-            activated_at = current_timestamp,
-            trigger_price_actual = trigger_price
-        WHERE order_id = stop_order.order_id
-
-        // 4.5: Submit Stop-Limit to Matching Engine as Limit Order
-        submit_result = submit_to_matching_engine({
-            order_id: stop_order.order_id,
-            symbol: stop_order.symbol,
-            side: stop_order.side,
-            volume: stop_order.volume,
-            price: stop_order.limit_price,  // Dùng limit_price
-            order_type: "LIMIT"
-        })
-
-        IF submit_result.status != "SUCCESS" THEN
-            ROLLBACK TRANSACTION
-            log_error("Failed to submit Stop-Limit to matching engine")
-            RETURN
-        END IF
-
-        // 4.6: Update OCO Master Order
-        UPDATE oco_orders
-        SET status = "STOP_TRIGGERED",
-            triggered_at = current_timestamp,
-            trigger_price = trigger_price,
-            updated_at = current_timestamp
-        WHERE oco_order_id = stop_order.oco_order_id
-
-        COMMIT TRANSACTION
-
-        // 4.7: Send Notification
-        notification = {
-            user_id: oco_order.user_id,
-            type: "OCO_STOP_TRIGGERED",
-            message: "Lệnh Stop-Limit của OCO " + oco_order.oco_order_id + " đã được kích hoạt tại giá " + trigger_price,
-            data: {oco_order_id, trigger_price, limit_price: stop_order.limit_price}
-        }
-        send_notification(notification)
-
-        // 4.8: Write Audit Log
-        audit_log = {
-            event_type: "OCO_STOP_TRIGGERED",
-            user_id: oco_order.user_id,
-            oco_order_id: oco_order.oco_order_id,
-            stop_order_id: stop_order.order_id,
-            trigger_price: trigger_price,
-            limit_price: stop_order.limit_price,
-            timestamp: current_timestamp
-        }
-        write_audit_log(audit_log)
-    END FUNCTION
-
-Bước 5: Performance Monitoring
-    execution_time = current_timestamp - tick_timestamp
-
-    IF execution_time > 100ms THEN
-        log_warning("Stop trigger processing slow: " + execution_time + "ms")
-        send_alert_to_ops_team()
-    END IF
-```
+**Business Logic:**
+- Trigger detection phải real-time (< 100ms latency)
+- Cancel Limit Order phải thành công trước khi activate Stop-Limit (atomicity)
+- FIFO priority khi nhiều orders cùng trigger
+- Market halt → Pause monitoring, resume khi market mở
 
 **Error Handling:**
-- **Cancel Limit Order Failed**: Rollback, không trigger Stop-Limit, log error, retry sau 1s
-- **Submit Stop-Limit Failed**: Rollback, giữ nguyên trạng thái, log error, alert ops team
-- **Database Deadlock**: Retry transaction max 3 lần
-- **Market Halted**: Queue trigger event, process khi market resume
+- Cancel Limit Order failed → Rollback, không trigger Stop-Limit, log error, retry sau 1s
+- Submit Stop-Limit failed → Rollback, giữ nguyên trạng thái, alert ops team
+- Database deadlock → Retry transaction max 3 lần
+- Market halted → Queue trigger event, process khi market resume
+- Matching engine timeout → Retry với exponential backoff
 
 #### OUTPUT
 
 **Success Side Effects:**
-- Limit Order đã bị cancel trong matching engine
-- Stop-Limit Order đã được submit vào matching engine như Limit Order
-- OCO Master status updated sang "STOP_TRIGGERED"
+- Limit Order status = CANCELLED trong matching engine và database
+- Stop-Limit Order status = PENDING và submitted vào matching engine
+- OCO Master status = STOP_TRIGGERED
 - Notification sent to user
 - Audit log written
 
@@ -1043,7 +1021,16 @@ Bước 5: Performance Monitoring
 }
 ```
 
-### 6.3 State Diagram
+**Notification Message:**
+```
+Lệnh Stop-Limit đã được kích hoạt
+- Mã CK: VN30F2312
+- Giá kích hoạt: 42,000 VNĐ
+- Lệnh Limit đã đặt tại giá: 42,500 VNĐ
+- Khối lượng: 500
+```
+
+### 6.4 State Diagram
 
 ```
                     ┌─────────────────┐
@@ -1380,20 +1367,20 @@ Bước 5: Performance Monitoring
 
 #### 8.2.6 Monitoring & Alerting
 
-- **Metrics**:
-  - Order creation success rate
-  - Stop trigger accuracy rate
-  - Average order processing time
-  - Error rate by error code
-  - Active OCO orders count
-  - Matching engine queue depth
+**Metrics:**
+- Order creation success rate
+- Stop trigger accuracy rate
+- Average order processing time
+- Error rate by error code
+- Active OCO orders count
+- Matching engine queue depth
 
-- **Alerts**:
-  - Error rate > 1%
-  - Response time > 2s (p95)
-  - Stop trigger latency > 200ms
-  - Database connection pool exhausted
-  - Matching engine unavailable
+**Alerts:**
+- Error rate > 1%
+- Response time > 2s (p95)
+- Stop trigger latency > 200ms
+- Database connection pool exhausted
+- Matching engine unavailable
 
 ### 8.3 Assumptions & Constraints
 
