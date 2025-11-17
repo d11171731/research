@@ -71,17 +71,7 @@ Tài liệu này mô tả chi tiết các yêu cầu nghiệp vụ cho tính nă
 
 ## 2. MỤC TIÊU KINH DOANH
 
-### 2.1 Vấn đề cần giải quyết
-
 [Mô tả vấn đề hiện tại của khách hàng/doanh nghiệp]
-
-### 2.2 Mục tiêu nghiệp vụ
-
-1. **Mục tiêu 1**: [Mô tả mục tiêu cụ thể, đo lường được]
-2. **Mục tiêu 2**: [Mô tả mục tiêu cụ thể, đo lường được]
-3. **Mục tiêu 3**: [Mô tả mục tiêu cụ thể, đo lường được]
-
-
 ---
 
 ## 3. CÁC BÊN LIÊN QUAN
@@ -327,16 +317,6 @@ State A → [Điều kiện] → State B
 ### 8.1 Wireframes/Mockups
 
 [Link đến wireframes hoặc nhúng hình ảnh]
-
-### 8.2 Data Samples
-
-[Dữ liệu mẫu nếu cần]
-
-### 8.3 Additional Documents
-
-- [Tài liệu 1]
-- [Tài liệu 2]
-
 ---
 
 **END OF DOCUMENT**

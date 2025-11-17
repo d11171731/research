@@ -109,9 +109,7 @@ When you receive a task to write a BRD:
    - 7.2 Bảng/Danh sách hiển thị
 
 10. **8. PHỤ LỤC**
-    - 8.1 Wireframes/Mockups
-    - 8.2 Data Samples
-    - 8.3 Additional Documents
+    - Wireframes/Mockups
 
 ## Section-Specific Guidelines
 
