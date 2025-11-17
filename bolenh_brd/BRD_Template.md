@@ -200,18 +200,9 @@ Bước 1 → Bước 2 → Bước 3
 |---------|-------|------|----------|-------|
 | [param1] | [Mô tả] | [Type] | Y/N | [Ví dụ] |
 
-**System Input:**
-| Tham số | Nguồn | Mô tả | Ví dụ |
-|---------|-------|-------|-------|
-| [param1] | [Nguồn hệ thống] | [Mô tả] | [Ví dụ] |
-
-**Context Data:**
-- [Dữ liệu ngữ cảnh cần thiết 1]
-- [Dữ liệu ngữ cảnh cần thiết 2]
-
 #### PROCESS
 
-**Thuật toán xử lý:**
+**Thuật toán xử lý:** Processing algorithm (product-oriented description, NOT technology-oriented. Pseudo-code OK, no code samples)
 
 1. **Bước 1: [Tên bước]**
    ```
@@ -251,11 +242,6 @@ Bước 1 → Bước 2 → Bước 3
 | Error Code | Mô tả | HTTP Status | Message |
 |------------|-------|-------------|---------|
 | ERR-001 | [Mô tả lỗi] | 400 | "[Thông báo]" |
-
-**Side Effects:**
-- Database update: [Mô tả]
-- Notification: [Mô tả]
-- Audit log: [Mô tả]
 
 ### 6.2 State Diagram
 
