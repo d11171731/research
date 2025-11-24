@@ -1,0 +1,499 @@
+{
+  "Request Fulfillment Management": {
+    "charter_id": "OC-RFM-001",
+    "owner": "Service Desk Manager",
+    "sponsor": "IT Director",
+    "period": "Q1-Q2 2025 (6 tháng)",
+    "status": "Planning",
+    "business_context": "Hiện tại Request Fulfillment thiếu metrics tracking (0%), không đo CSAT, và không tích hợp ITSM. Dẫn đến không biết hiệu suất, không justify resources, và users không hài lòng (engagement 25%).",
+    "objective_smart": "Thiết lập Request Fulfillment Management chuyên nghiệp với SLA compliance >90%, CSAT >4.0/5.0, và giảm 20% cycle time trong vòng 6 tháng thông qua metrics tracking, quality measurement và ITSM integration.",
+    "scope": {
+      "in_scope": [
+        "Setup dashboard tracking 5 KPIs (SLA %, cycle time, backlog, MTTR, CSAT)",
+        "CSAT survey automation",
+        "ITSM integration (Incident/Change/CMDB linkage)",
+        "Monthly service review process",
+        "Business service mapping (>75% coverage)"
+      ],
+      "out_of_scope": [
+        "Service Catalog redesign",
+        "Headcount tăng thêm >2 FTE"
+      ]
+    },
+    "success_criteria": [
+      "SLA compliance >90% (baseline: không đo)",
+      "CSAT score >4.0/5.0 với response rate >60%",
+      "Average cycle time giảm 20%",
+      "User engagement tăng từ 25% lên 70%",
+      "Business service mapping coverage >75%"
+    ],
+    "raci": {
+      "sponsor": "IT Director",
+      "accountable": "Service Desk Manager",
+      "responsible": "ITSM Specialist, BI Analyst",
+      "consulted": "Development Team, Infrastructure Team, Business Units",
+      "informed": "All End Users, Management"
+    },
+    "key_milestones": [
+      "T1: Dashboard framework + KPI definitions approved",
+      "T2: CSAT survey live, first data collection",
+      "T3: ITSM integration design completed",
+      "T4: Service review process piloted",
+      "T5: User engagement campaign launched",
+      "T6: Business service mapping completed, full production"
+    ],
+    "resources": {
+      "team_size": "2-3 FTE (ITSM Specialist, BI Analyst, part-time support)",
+      "budget": "Medium (~$50-100K cho tools + training)",
+      "key_tools": "Power BI/Grafana, Survey tool (TypeForm/Google), ITSM platform"
+    },
+    "top_risks": [
+      {
+        "risk": "User không participate CSAT survey (<30% response rate)",
+        "impact": "HIGH",
+        "mitigation": "Gamification, incentives, simplify survey (3 questions), follow-up campaigns"
+      },
+      {
+        "risk": "ITSM integration phức tạp, delay 2-3 tháng",
+        "impact": "MEDIUM",
+        "mitigation": "Phân giai đoạn (manual linking trước, auto sau), external consultant nếu cần"
+      }
+    ],
+    "dependencies": [
+      "ITSM platform phải có API/webhooks (critical)",
+      "BI tool procurement approved by Finance",
+      "Business Units provide service mapping input"
+    ],
+    "findings_addressed": "6 findings (4 CRITICAL): Metrics not tracked, NO CSAT, Weak ITSM integration, NO service review, Weak user engagement, NO business service mapping"
+  },
+  "Incident Management": {
+    "charter_id": "OC-IM-002",
+    "owner": "Incident Manager (new hire)",
+    "sponsor": "IT Director",
+    "period": "Q1-Q3 2025 (9 tháng)",
+    "status": "Planning",
+    "business_context": "Incident Management hiện tại: không có IM role, không có SLA approved, escalation ad-hoc, 0% automation, không integrate với CMDB/Problem/Change, và không ITIL compliant. User complaints tăng 40% QoQ.",
+    "objective_smart": "Xây dựng Incident Management process tuân thủ ITIL với P1 MTTR <4h (compliance >95%), P2 <8h (>90%), escalation compliance >95%, và automation rate >60% trong 9 tháng.",
+    "scope": {
+      "in_scope": [
+        "Hire/assign Incident Manager + define role",
+        "SLA definition và approval (P1-P4)",
+        "Formal escalation matrix",
+        "Workflow automation (auto-create, assign, categorize)",
+        "ITSM integration (Problem/Change/CMDB)",
+        "ITIL compliance implementation"
+      ],
+      "out_of_scope": [
+        "Major Incident Management (Phase 2)",
+        "24/7 support expansion"
+      ]
+    },
+    "success_criteria": [
+      "P1 MTTR <4h với compliance >95%",
+      "P2 MTTR <8h với compliance >90%",
+      "Escalation compliance >95%",
+      "Automation rate >60%",
+      "Incident-CMDB linkage >80%",
+      "ITIL compliance score >85%"
+    ],
+    "raci": {
+      "sponsor": "IT Director",
+      "accountable": "Incident Manager (new role)",
+      "responsible": "Service Desk Team, ITSM Specialist, DevOps (automation)",
+      "consulted": "Development Team, Infrastructure Team, Technical SMEs",
+      "informed": "All End Users, Management, CAB"
+    },
+    "key_milestones": [
+      "T1: IM role hired/assigned, SLA approved by management",
+      "T2: Escalation matrix deployed, team trained",
+      "T3: Automation pilot (auto-create, assign) for 20% volume",
+      "T6: ITSM integration live, CMDB linkage operational",
+      "T9: ITIL compliance audit passed, full automation"
+    ],
+    "resources": {
+      "team_size": "1 Incident Manager + 3-5 support staff",
+      "budget": "Medium-High (~$100-150K: IM salary + automation tools)",
+      "key_tools": "ITSM platform với automation engine, Monitoring tools integration, CMDB"
+    },
+    "top_risks": [
+      {
+        "risk": "Incident Manager role rejected by existing team (turf war)",
+        "impact": "HIGH",
+        "mitigation": "Clear charter, authority from IT Director, involve team in role design, quick wins"
+      },
+      {
+        "risk": "SLA targets không realistic, fail ngay từ đầu",
+        "impact": "HIGH",
+        "mitigation": "Baseline measurement 1 tháng trước khi set SLA, start với achievable targets, review quarterly"
+      }
+    ],
+    "dependencies": [
+      "Headcount approval cho Incident Manager (CRITICAL)",
+      "ITSM platform automation capability",
+      "CMDB phải có data accuracy >80% (dependency on Configuration Management OC)"
+    ],
+    "findings_addressed": "6 findings (4 CRITICAL): IM role not defined, SLA not approved, Escalation ad-hoc, Automation 0%, ITSM integration 0%, ITIL compliance 0%"
+  },
+  "Change Management": {
+    "charter_id": "OC-CM-003",
+    "owner": "Change Manager",
+    "sponsor": "CTO",
+    "period": "Q1-Q4 2025 (12 tháng)",
+    "status": "Planning",
+    "business_context": "Change Management có 19 findings (nhiều nhất), bao gồm: không có risk assessment framework, không có backup policy, audit không systematic, CR template phức tạp, CAB governance yếu, và Change Failure Rate cao (15-20%).",
+    "objective_smart": "Nâng Change success rate từ 80-85% lên >95%, giảm Emergency changes từ 18% xuống <10%, và đạt audit compliance >90% trong 12 tháng thông qua risk-based approach, formal governance và automation.",
+    "scope": {
+      "in_scope": [
+        "Risk assessment framework (scale 1-5) + escalation",
+        "Data retention policy + backup procedure",
+        "CM audit process (quarterly)",
+        "CR template optimization (3 types)",
+        "CAB governance (charter, criteria, cadence)",
+        "RACI formal documentation",
+        "Incident-Change linkage automation",
+        "CMDB integration for impact analysis",
+        "PIR automation with CI/CD",
+        "Training + certification program"
+      ],
+      "out_of_scope": [
+        "Full Standard Change automation library (Phase 2)",
+        "Tool replacement (sử dụng ITSM platform hiện tại)"
+      ]
+    },
+    "success_criteria": [
+      "Change success rate >95% (baseline: 80-85%)",
+      "Emergency changes <10% (baseline: 18%)",
+      "CAB attendance >80%",
+      "PIR completion rate >90%",
+      "CMDB linkage >85%",
+      "Audit compliance score >90%",
+      "Team CM certification >70%"
+    ],
+    "raci": {
+      "sponsor": "CTO",
+      "accountable": "Change Manager",
+      "responsible": "Change Management Team (2-3 coordinators), CAB Members",
+      "consulted": "Development Team, DevOps, Infrastructure, PQA, Product Team",
+      "informed": "All technical teams, Business stakeholders, Management"
+    },
+    "key_milestones": [
+      "T1: Risk framework approved, RACI published",
+      "T3: CAB charter signed, simplified CR templates live",
+      "T6: CMDB integration operational, communication plan deployed",
+      "T9: PIR automation with CI/CD, maintenance windows defined",
+      "T12: Training program completed, compliance audit passed"
+    ],
+    "resources": {
+      "team_size": "2-3 Change Coordinators full-time + CAB members part-time (5-7 people)",
+      "budget": "High (~$150-200K: automation, training, audit)",
+      "key_tools": "ITSM platform, CMDB, CI/CD integration, Dashboard/BI"
+    },
+    "top_risks": [
+      {
+        "risk": "CAB meetings overhead, slow down changes (business complaints)",
+        "impact": "MEDIUM",
+        "mitigation": "Pre-screening by Change team, batch approval cho low-risk, emergency CAB only when needed, time-boxing meetings"
+      },
+      {
+        "risk": "CMDB data inaccurate (60-70%), impact analysis sai",
+        "impact": "HIGH",
+        "mitigation": "Parallel CMDB improvement (dependency), validation step before change, fallback to manual review"
+      }
+    ],
+    "dependencies": [
+      "CMDB accuracy improvement to >80% (from Configuration Management OC) - CRITICAL",
+      "CAB members commitment (time allocation from their managers)",
+      "CI/CD pipeline stability for PIR automation"
+    ],
+    "findings_addressed": "19 findings (3 CRITICAL): Risk assessment missing, No backup/retention policy, No CM audit, Complex CR template, Weak CAB governance, No RACI, No CFR analysis, Manual Incident-Change link, No CMDB integration, etc."
+  },
+  "Configuration Management": {
+    "charter_id": "OC-CFG-004",
+    "owner": "CMDB Manager (new role)",
+    "sponsor": "CTO",
+    "period": "Q2-Q4 2025 (9 tháng)",
+    "status": "Planning",
+    "business_context": "Configuration Management critical gaps: Không có CMDB policy, đang dùng Excel (!), không map relationships, không audit, không có ownership, và không integrate với IM/CM. Impact: Change impact analysis sai, Incident resolution chậm.",
+    "objective_smart": "Triển khai CMDB tool chuyên nghiệp thay Excel với accuracy >95%, CI coverage >90%, relationship accuracy >90%, và integrate với IM/CM trong 9 tháng.",
+    "scope": {
+      "in_scope": [
+        "CMDB policy formal + approval",
+        "CMDB tool selection + procurement + implementation",
+        "CI classification schema + relationship types",
+        "Top 20 critical services mapping (CI + relationships)",
+        "CI ownership assignment (100%)",
+        "CMDB Steward role + governance",
+        "IM-CM-CMDB integration",
+        "Auto-discovery implementation (servers, network, cloud)",
+        "Quarterly audit process"
+      ],
+      "out_of_scope": [
+        "Full enterprise architecture modeling (>100 services)",
+        "Financial asset management integration"
+      ]
+    },
+    "success_criteria": [
+      "CMDB accuracy >95% (validated quarterly)",
+      "CI coverage >90% cho critical infrastructure",
+      "Relationship accuracy >90%",
+      "CI update timeliness <24h",
+      "Incident-CMDB linkage >80%",
+      "Change-CMDB impact analysis usage >85%",
+      "Auto-discovery coverage >70%"
+    ],
+    "raci": {
+      "sponsor": "CTO",
+      "accountable": "CMDB Manager (new role)",
+      "responsible": "Configuration Analysts (2-3), CMDB Steward",
+      "consulted": "All technical teams, Infrastructure, DevOps, Security, Network team",
+      "informed": "Incident Management, Change Management, Problem Management, Management"
+    },
+    "key_milestones": [
+      "T4: CMDB policy approved, tool RFP issued",
+      "T5: Tool selected, procurement completed, initial data load from Excel",
+      "T6: Relationship mapping pilot (5 critical services), CI ownership assigned",
+      "T7: IM-CM integration deployed",
+      "T9: Auto-discovery operational, quarterly audit process live",
+      "T12: Full production with >95% accuracy"
+    ],
+    "resources": {
+      "team_size": "2-3 Configuration Analysts full-time + CMDB Manager",
+      "budget": "High (~$200-300K: tool license $100K+, implementation, training)",
+      "key_tools": "CMDB tool (ServiceNow/Jira Insight/iTop/Device42), Discovery tools, Integration adapters"
+    },
+    "top_risks": [
+      {
+        "risk": "CMDB tool selection sai, không meet requirements sau khi mua",
+        "impact": "CRITICAL",
+        "mitigation": "Detailed RFP (50+ requirements), POC với 2-3 vendors, stakeholder review committee, phased payment"
+      },
+      {
+        "risk": "Data migration từ Excel: data dirty (50% accuracy), nhiều lỗi",
+        "impact": "HIGH",
+        "mitigation": "Data cleansing workshop 1 tháng trước migration, validation rules trong CMDB, accept phân giai đoạn (critical services first)"
+      }
+    ],
+    "dependencies": [
+      "CMDB tool budget approval ($100-200K) - CRITICAL",
+      "Technical teams provide CI data và maintain ownership",
+      "Monitoring tools APIs available for auto-discovery"
+    ],
+    "findings_addressed": "11 findings (2 CRITICAL): No CMDB policy, Using Excel (!), No CI relationships mapping, No audit, No CI ownership, No CMDB Steward, No IM/CM integration, No data quality standards, No auto-population, Part-time team, No KPIs"
+  },
+  "Process QA": {
+    "charter_id": "OC-PQA-005",
+    "owner": "PQA Lead",
+    "sponsor": "IT Director",
+    "period": "Q1-Q4 2025 (12 tháng)",
+    "status": "Planning",
+    "business_context": "Process QA gần như không tồn tại: Không có audit checklists, audit yearly only (không đủ), coverage 3% (1/30 processes), metrics 10%, không escalation. Result: Process compliance unknown, risks không được phát hiện.",
+    "objective_smart": "Xây dựng Process QA function từ 0 với audit coverage >30% (Year 1), quarterly audit cadence, metrics tracking >80%, và process compliance score average >85% trong 12 tháng.",
+    "scope": {
+      "in_scope": [
+        "Audit checklists cho 10 ITSM processes (IM, CM, PM, RFC, CMDB, SLM, CAB, 3PM, RFM, BCM)",
+        "Quarterly audit schedule + execution",
+        "Coverage expansion: 3% → 30% (Year 1) → 50% (Year 2)",
+        "Metrics framework (15+ KPIs per process)",
+        "Escalation matrix (Critical <7 days, High <30 days)",
+        "Process maturity assessment model (CMMI Level 1-5)"
+      ],
+      "out_of_scope": [
+        "Code quality audit (QC team)",
+        "Security audit (Security team)",
+        "Financial audit (Finance team)"
+      ]
+    },
+    "success_criteria": [
+      "Audit coverage >30% processes (baseline: 3%)",
+      "Quarterly audit on-time >95%",
+      "Critical findings resolution <7 days: 100%",
+      "High findings resolution <30 days: >90%",
+      "Process compliance average >85%",
+      "Metrics tracking coverage >80%",
+      "Process maturity tăng Level 2→3 (average)"
+    ],
+    "raci": {
+      "sponsor": "IT Director",
+      "accountable": "PQA Lead",
+      "responsible": "Process Auditors (2), Compliance Specialist",
+      "consulted": "All process owners (IM, CM, PM, etc.), ITSM Lead, External auditors",
+      "informed": "Management, Audit Committee, Process teams"
+    },
+    "key_milestones": [
+      "T1: Audit checklists approved, escalation matrix published",
+      "T3: Q1 audit completed (IM, CM, PM) - 10% coverage",
+      "T6: Q2 audit completed (expand +3 processes) - 20% coverage",
+      "T9: Q3 audit + maturity assessment framework deployed",
+      "T12: Q4 audit + annual compliance report - 30% coverage achieved"
+    ],
+    "resources": {
+      "team_size": "2-3 PQA specialists (PQA Lead + 2 Auditors)",
+      "budget": "Medium (~$80-120K: salaries, GRC tool optional, training)",
+      "key_tools": "GRC tool (optional, có thể dùng Excel/SharePoint Year 1), Audit management platform, Dashboard"
+    },
+    "top_risks": [
+      {
+        "risk": "Process owners resist audit, không cooperate (culture issue)",
+        "impact": "HIGH",
+        "mitigation": "Position audit as 'help not blame', management mandate, collaborative approach, quick wins showcase, training on value of audit"
+      },
+      {
+        "risk": "PQA team thiếu technical ITSM knowledge, audit không chất lượng",
+        "impact": "MEDIUM",
+        "mitigation": "Hire ITIL-certified auditors, continuous training, SME support cho từng audit, external consultant Year 1"
+      }
+    ],
+    "dependencies": [
+      "Management commitment và enforcement of audit findings",
+      "Process owners allocate time for audits (2-4 hours/audit)",
+      "Headcount approval cho PQA team (2-3 FTE)"
+    ],
+    "findings_addressed": "6 findings (5 CRITICAL!): No audit checklists, Audit yearly only, Coverage 3%, Metrics 10%, No escalation, No maturity assessment"
+  },
+  "3rd Party Management": {
+    "charter_id": "OC-3PM-006",
+    "owner": "Vendor Manager (new role)",
+    "sponsor": "CFO / CTO",
+    "period": "Q1-Q3 2025 (9 tháng)",
+    "status": "Planning",
+    "business_context": "3rd Party Management hoàn toàn ad-hoc: Không policy, không vendor classification, không SLA monitoring, không metrics, không risk assessment. Result: Vendor risks unknown, SLA breaches không phát hiện, contracts renewed mà không review performance.",
+    "objective_smart": "Thiết lập formal 3PM framework với 100% vendors classified, Tier 1 SLA compliance >95%, vendor performance reviews on-time >90%, và giảm 25% vendor-related incidents trong 9 tháng.",
+    "scope": {
+      "in_scope": [
+        "3PM Policy formal (approval by management)",
+        "Vendor classification matrix (Tier 1/2/3 by criticality, spend, risk)",
+        "Complete vendor inventory database",
+        "SLA monitoring dashboard (automated data feed)",
+        "Vendor performance scorecard (monthly for Tier 1, quarterly for Tier 2)",
+        "Risk assessment templates + register",
+        "RACI for 3PM activities"
+      ],
+      "out_of_scope": [
+        "Contract negotiation (Procurement team)",
+        "Vendor onboarding automation (Phase 2)",
+        "Legal review (Legal team)"
+      ]
+    },
+    "success_criteria": [
+      "100% vendors classified (Tier 1/2/3)",
+      "Tier 1 vendors SLA compliance >95%",
+      "Vendor performance review on-time >90%",
+      "High-risk vendors có mitigation plan: 100%",
+      "Vendor-related incidents giảm 25%",
+      "Contract renewal lead time -30%"
+    ],
+    "raci": {
+      "sponsor": "CFO / CTO (co-sponsor)",
+      "accountable": "Vendor Manager (new role)",
+      "responsible": "Contract Specialist, ITSM Lead (for SLA monitoring)",
+      "consulted": "Procurement, Legal, Finance, All technical teams using vendors",
+      "informed": "Management, Business units, Audit Committee"
+    },
+    "key_milestones": [
+      "T1: 3PM Policy approved, complete vendor inventory (30-50 vendors expected)",
+      "T2: Vendor classification completed, validated by stakeholders",
+      "T3: SLA monitoring pilot for Tier 1 vendors (10-15 vendors)",
+      "T6: Full SLA monitoring operational, risk assessment completed",
+      "T9: Performance tracking live, quarterly reviews established"
+    ],
+    "resources": {
+      "team_size": "1-2 Vendor Managers (1 FTE, 1 part-time or shared with Procurement)",
+      "budget": "Medium (~$60-100K: VM salary, vendor mgmt platform, training)",
+      "key_tools": "Vendor management platform (Coupa/SAP Ariba/Gartner alternative), Contract repository, Dashboard"
+    },
+    "top_risks": [
+      {
+        "risk": "Vendors không provide SLA data (contractual gap)",
+        "impact": "HIGH",
+        "mitigation": "Review contracts, add reporting clause at renewal, escalate to vendor management, manual collection interim"
+      },
+      {
+        "risk": "Too many vendors (>50) with limited resources (1-2 FTE)",
+        "impact": "MEDIUM",
+        "mitigation": "Prioritize Tier 1 (focus 80% effort), vendor consolidation strategy, automate data collection"
+      }
+    ],
+    "dependencies": [
+      "Contract repository accessible (Legal/Procurement)",
+      "Vendor cooperation on SLA reporting",
+      "Headcount approval for Vendor Manager role"
+    ],
+    "findings_addressed": "6 findings (4 CRITICAL): No 3PM Policy, No vendor classification, No SLA monitoring, No vendor metrics, No risk assessment, No roles & authority"
+  },
+  "Quality Control": {
+    "charter_id": "OC-QC-007",
+    "owner": "QC Lead",
+    "sponsor": "CTO / VP Engineering",
+    "period": "Q1-Q4 2025 (12 tháng)",
+    "status": "Planning",
+    "business_context": "QC có 21 findings (nhiều nhất cùng CM): Không strategy, không test planning chuẩn, không metrics/KPIs, không đo test coverage, không automation strategy, chỉ 1 test environment (bottleneck), skill gap lớn (25-30% biết automation). Defect leakage cao 8-10%.",
+    "objective_smart": "Transform QC từ ad-hoc thành systematic với test coverage >80%, automation coverage >60%, defect leakage <5%, và QC team automation skill từ 25% lên 70% trong 12 tháng thông qua QC strategy, automation framework và training program.",
+    "scope": {
+      "in_scope": [
+        "QC Strategy document (3-year roadmap)",
+        "Test planning process standardization",
+        "QC metrics dashboard (15+ KPIs)",
+        "Test coverage tool + measurement",
+        "Test automation framework (Selenium/Playwright/Cypress)",
+        "Test data management process + masking",
+        "ISO 29119 compliance gap analysis + roadmap",
+        "Quality gates enforcement (6 gates)",
+        "Test environment expansion (+1 environment minimum)",
+        "QC training program (automation, performance, security)",
+        "Defect triage weekly process"
+      ],
+      "out_of_scope": [
+        "Full shift-left testing (Phase 2)",
+        "Production monitoring & observability"
+      ]
+    },
+    "success_criteria": [
+      "Test coverage >80% (baseline: không đo)",
+      "Test automation coverage >60% (baseline: 10-15%)",
+      "Defect leakage <5% (baseline: 8-10%)",
+      "Test execution efficiency >90%",
+      "Regression automation >80%",
+      "QC team automation skill >70% (baseline: 25-30%)",
+      "ISO 29119 compliance gap <20%",
+      "Quality gate compliance >90%",
+      "Test environment availability >95%"
+    ],
+    "raci": {
+      "sponsor": "CTO / VP Engineering",
+      "accountable": "QC Lead",
+      "responsible": "Test Engineers (5-8), Automation Engineers (2-3)",
+      "consulted": "Development Team, DevOps, Product Team, Security Team",
+      "informed": "End users, Product Management, Business stakeholders, Management"
+    },
+    "key_milestones": [
+      "T1-3: QC Strategy approved, metrics dashboard live, test planning standardized (Phase 1)",
+      "T4-6: Test coverage tool deployed, automation framework selected + pilot (Phase 2)",
+      "T7-9: Automation implementation (60% regression), +1 test environment deployed, performance baseline (Phase 3)",
+      "T10-12: ISO compliance roadmap, training program completed (70% team certified), continuous improvement (Phase 4)"
+    ],
+    "resources": {
+      "team_size": "5-8 QC engineers (2-3 automation specialists, 1 performance engineer)",
+      "budget": "High (~$200-300K: automation tools, test environment, training, certifications)",
+      "key_tools": "Test management (Jira/TestRail), Automation (Selenium/Playwright), Performance (JMeter/Gatling), Test data mgmt, Code coverage (SonarQube)"
+    },
+    "top_risks": [
+      {
+        "risk": "Automation skill gap quá lớn (75% team không biết), training không kịp",
+        "impact": "CRITICAL",
+        "mitigation": "Intensive bootcamp (3 months), hire 1-2 automation experts, external consultants for framework setup, pair programming, realistic timeline (accept <60% nếu cần)"
+      },
+      {
+        "risk": "Chỉ 1 test environment - bottleneck nghiêm trọng, teams xung đột",
+        "impact": "HIGH",
+        "mitigation": "Prioritize +1 environment deployment (T7-T9), containerization (Docker), environment booking system, cloud-based test env"
+      }
+    ],
+    "dependencies": [
+      "Test environment infrastructure budget approved (~$50-100K)",
+      "Development team cooperation on automation (code testability)",
+      "SonarQube operational (hoặc tương đương) for coverage",
+      "Training budget approved (~$30-50K)"
+    ],
+    "findings_addressed": "21 findings (7 CRITICAL): No QC strategy, No test planning, No metrics/KPIs, No test coverage, No automation strategy, No test data mgmt, No international standards compliance, weak defect mgmt, weak quality gates, only 1 test env, và 11 findings khác"
+  }
+}
