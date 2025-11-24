@@ -1,0 +1,424 @@
+{
+  "summary": {
+    "total_findings": 75,
+    "by_priority": {
+      "CRITICAL": 29,
+      "HIGH": 23,
+      "MEDIUM": 23
+    },
+    "by_area": {
+      "QC": 21,
+      "Change Management": 19,
+      "Configuration": 11,
+      "Request fullfilment Management": 6,
+      "Incident": 6,
+      "Process QA": 6,
+      "3rd party Management": 6
+    }
+  },
+  "organizational_components": {
+    "ITSM Core Team": {
+      "description": "Đội ngũ lõi quản lý các quy trình ITSM",
+      "roles": [
+        "ITSM Lead",
+        "Process Owner",
+        "ITSM Specialist"
+      ],
+      "responsible_areas": [
+        "Incident Management",
+        "Request Fulfillment Management",
+        "Change Management"
+      ],
+      "headcount": "3-5 người"
+    },
+    "Change Advisory Board (CAB)": {
+      "description": "Hội đồng đánh giá và phê duyệt Change",
+      "roles": [
+        "CAB Chair",
+        "Technical SME",
+        "Business Representative"
+      ],
+      "responsible_areas": [
+        "Change Management"
+      ],
+      "headcount": "5-7 người (part-time)"
+    },
+    "Process Quality Assurance (PQA)": {
+      "description": "Đội audit và đảm bảo chất lượng quy trình",
+      "roles": [
+        "PQA Lead",
+        "Process Auditor",
+        "Compliance Specialist"
+      ],
+      "responsible_areas": [
+        "Process QA",
+        "All Process Compliance"
+      ],
+      "headcount": "2-3 người"
+    },
+    "Configuration Management Team": {
+      "description": "Quản lý CMDB và Configuration Items",
+      "roles": [
+        "CMDB Manager",
+        "Configuration Analyst"
+      ],
+      "responsible_areas": [
+        "Configuration Management",
+        "CMDB"
+      ],
+      "headcount": "2-3 người"
+    },
+    "QC/QA Team": {
+      "description": "Đội kiểm thử và đảm bảo chất lượng sản phẩm",
+      "roles": [
+        "QC Lead",
+        "Test Engineer",
+        "Automation Engineer"
+      ],
+      "responsible_areas": [
+        "Quality Control",
+        "Testing"
+      ],
+      "headcount": "5-8 người"
+    },
+    "DevOps/Infrastructure Team": {
+      "description": "Quản lý infrastructure và CI/CD",
+      "roles": [
+        "DevOps Lead",
+        "Infrastructure Engineer",
+        "Automation Engineer"
+      ],
+      "responsible_areas": [
+        "Infrastructure",
+        "Deployment",
+        "Monitoring"
+      ],
+      "headcount": "4-6 người"
+    },
+    "Development Team": {
+      "description": "Đội phát triển sản phẩm",
+      "roles": [
+        "Tech Lead",
+        "Developer"
+      ],
+      "responsible_areas": [
+        "Development",
+        "Code Quality"
+      ],
+      "headcount": "10-15 người"
+    },
+    "Vendor Management Team": {
+      "description": "Quản lý nhà cung cấp bên thứ ba",
+      "roles": [
+        "Vendor Manager",
+        "Contract Specialist"
+      ],
+      "responsible_areas": [
+        "3rd Party Management"
+      ],
+      "headcount": "1-2 người"
+    }
+  },
+  "working_teams": {
+    "Request Fulfillment Management": {
+      "lead": "ITSM Core Team",
+      "members": [
+        "ITSM Lead",
+        "Service Desk Manager",
+        "BI Team"
+      ],
+      "support": [
+        "Development Team",
+        "Infrastructure Team"
+      ],
+      "findings_count": 6,
+      "critical_count": 4
+    },
+    "Incident Management": {
+      "lead": "ITSM Core Team",
+      "members": [
+        "Incident Manager (new role)",
+        "ITSM Specialist",
+        "Service Desk Team"
+      ],
+      "support": [
+        "Development Team",
+        "Infrastructure Team"
+      ],
+      "findings_count": 6,
+      "critical_count": 4
+    },
+    "Change Management": {
+      "lead": "Change Management Team",
+      "members": [
+        "Change Manager",
+        "CAB Members",
+        "PQA"
+      ],
+      "support": [
+        "Development Team",
+        "DevOps Team",
+        "Infrastructure"
+      ],
+      "findings_count": 19,
+      "critical_count": 3
+    },
+    "Configuration Management": {
+      "lead": "Configuration Management Team",
+      "members": [
+        "CMDB Manager",
+        "Configuration Analysts"
+      ],
+      "support": [
+        "All technical teams"
+      ],
+      "findings_count": 11,
+      "critical_count": 2
+    },
+    "Process QA": {
+      "lead": "Process Quality Assurance Team",
+      "members": [
+        "PQA Lead",
+        "Process Auditors"
+      ],
+      "support": [
+        "All process owners"
+      ],
+      "findings_count": 6,
+      "critical_count": 5
+    },
+    "3rd Party Management": {
+      "lead": "Vendor Management Team",
+      "members": [
+        "Vendor Manager",
+        "Contract Specialist",
+        "ITSM Lead"
+      ],
+      "support": [
+        "Legal",
+        "Finance",
+        "Technical Teams"
+      ],
+      "findings_count": 6,
+      "critical_count": 4
+    },
+    "Quality Control": {
+      "lead": "QC/QA Team",
+      "members": [
+        "QC Lead",
+        "Test Engineers",
+        "Automation Engineers"
+      ],
+      "support": [
+        "Development Team",
+        "DevOps Team"
+      ],
+      "findings_count": 21,
+      "critical_count": 7
+    }
+  },
+  "implementation_roadmap": {
+    "Phase 1: Foundation & Quick Wins (Tháng 1-3)": {
+      "muc_tieu": "Thiết lập nền tảng, xử lý các vấn đề CRITICAL cần thiết",
+      "areas": [
+        {
+          "area": "ITSM Governance",
+          "tasks": [
+            "Xác định và gán Incident Manager role",
+            "Thiết lập SLA cho Incident (P1-P4)",
+            "Thiết lập escalation matrix",
+            "Xây dựng Change risk assessment framework",
+            "Thiết lập RACI matrix cho tất cả quy trình"
+          ],
+          "owner": "ITSM Core Team + CAB",
+          "priority": "CRITICAL"
+        },
+        {
+          "area": "Process QA - Khởi động",
+          "tasks": [
+            "Tạo audit checklists cho IM, CM, PM",
+            "Lên lịch audit quarterly thay vì yearly",
+            "Thiết lập escalation path cho critical findings"
+          ],
+          "owner": "PQA Team",
+          "priority": "CRITICAL"
+        },
+        {
+          "area": "3rd Party Management - Cơ bản",
+          "tasks": [
+            "Tạo 3PM Policy formal",
+            "Phân loại vendors theo criticality",
+            "Thiết lập SLA monitoring cơ bản"
+          ],
+          "owner": "Vendor Management Team",
+          "priority": "CRITICAL"
+        }
+      ],
+      "deliverables": [
+        "RACI matrix cho tất cả quy trình",
+        "SLA definitions đã được phê duyệt",
+        "Audit checklists và lịch trình",
+        "3PM Policy và vendor classification",
+        "Risk assessment framework"
+      ]
+    },
+    "Phase 2: Process Maturity & Integration (Tháng 4-6)": {
+      "muc_tieu": "Nâng cao độ trưởng thành quy trình, tích hợp giữa các quy trình",
+      "areas": [
+        {
+          "area": "Configuration Management",
+          "tasks": [
+            "Thiết lập CMDB policy formal",
+            "Đánh giá và chọn CMDB tool (thay Excel)",
+            "Map CI relationships & service dependencies",
+            "Thiết lập CI ownership và CMDB Steward role",
+            "Integrate CMDB với Incident và Change"
+          ],
+          "owner": "Configuration Management Team",
+          "priority": "CRITICAL → HIGH"
+        },
+        {
+          "area": "Change Management - Nâng cao",
+          "tasks": [
+            "Thiết lập backup và retention policy cho CR",
+            "Đơn giản hóa CR template theo loại",
+            "Thiết lập Communication Plan chi tiết",
+            "Xây dựng CAB decision criteria và lịch họp",
+            "Implement Incident-Change linkage"
+          ],
+          "owner": "Change Management Team + CAB",
+          "priority": "CRITICAL → HIGH"
+        },
+        {
+          "area": "Request Fulfillment - Metrics",
+          "tasks": [
+            "Setup dashboard tracking SLA %, cycle time",
+            "Thiết lập CSAT survey và quality metrics",
+            "Map requests to business services"
+          ],
+          "owner": "ITSM Core Team + BI Team",
+          "priority": "CRITICAL → HIGH"
+        },
+        {
+          "area": "QC - Foundation",
+          "tasks": [
+            "Xây dựng QC strategy và roadmap",
+            "Chuẩn hóa test planning process",
+            "Thiết lập QA/QC metrics và KPIs",
+            "Thiết lập test coverage measurement"
+          ],
+          "owner": "QC/QA Team",
+          "priority": "CRITICAL"
+        }
+      ],
+      "deliverables": [
+        "CMDB tool implementation plan",
+        "Integrated ITSM processes (IM-CM-CMDB)",
+        "Request Fulfillment dashboard",
+        "QC strategy document",
+        "CR retention policy"
+      ]
+    },
+    "Phase 3: Automation & Optimization (Tháng 7-9)": {
+      "muc_tieu": "Tự động hóa và tối ưu hóa quy trình",
+      "areas": [
+        {
+          "area": "Workflow Automation",
+          "tasks": [
+            "Tự động hóa incident creation và assignment",
+            "Tự động hóa ITSM integration (IM-CM-PM-CMDB)",
+            "Setup auto-population CMDB từ monitoring tools",
+            "Tự động hóa PIR check với CI/CD"
+          ],
+          "owner": "DevOps Team + ITSM Core Team",
+          "priority": "HIGH"
+        },
+        {
+          "area": "QC Automation",
+          "tasks": [
+            "Xây dựng test automation strategy",
+            "Setup test data management process",
+            "Implement automated regression testing",
+            "Training automation tools cho team (hiện tại 25-30%)"
+          ],
+          "owner": "QC/QA Team + DevOps",
+          "priority": "CRITICAL → HIGH"
+        },
+        {
+          "area": "Change Management - Advanced",
+          "tasks": [
+            "Implement batch approval cho related changes",
+            "Thiết lập maintenance window based on criticality",
+            "Định nghĩa change freeze periods",
+            "Auto dashboard data refresh"
+          ],
+          "owner": "Change Management Team + DevOps",
+          "priority": "MEDIUM"
+        }
+      ],
+      "deliverables": [
+        "Automated incident workflow",
+        "Test automation framework",
+        "CMDB auto-discovery implementation",
+        "Automated PIR checks",
+        "Advanced change management features"
+      ]
+    },
+    "Phase 4: Compliance & Continuous Improvement (Tháng 10-12)": {
+      "muc_tieu": "Đảm bảo tuân thủ và cải tiến liên tục",
+      "areas": [
+        {
+          "area": "Compliance & Standards",
+          "tasks": [
+            "Implement ITIL/ISO compliance cho Incident Management",
+            "QC compliance với chuẩn quốc tế (ISO 29119, ISTQB)",
+            "GDPR và data protection trong testing",
+            "Setup CM audit schedule và compliance tracking"
+          ],
+          "owner": "PQA Team + ITSM Lead",
+          "priority": "HIGH → MEDIUM"
+        },
+        {
+          "area": "Process Maturity Assessment",
+          "tasks": [
+            "Conduct maturity assessment cho tất cả quy trình",
+            "Expand audit coverage từ 3% lên 30-50%",
+            "Setup process improvement backlog",
+            "Analyze change failure root causes strategically"
+          ],
+          "owner": "PQA Team + Process Owners",
+          "priority": "CRITICAL → MEDIUM"
+        },
+        {
+          "area": "Training & Capability Building",
+          "tasks": [
+            "Xây dựng CM training chuyên sâu và đặc thù",
+            "Định nghĩa certification requirements cho CM",
+            "QC skill gap training và capability roadmap",
+            "CMDB training cho all technical teams"
+          ],
+          "owner": "ITSM Lead + L&D + HR",
+          "priority": "MEDIUM"
+        },
+        {
+          "area": "Advanced Analytics & Reporting",
+          "tasks": [
+            "Setup KPI đo CMDB effectiveness",
+            "Vendor metrics và performance tracking",
+            "Test execution reports và analytics",
+            "Continuous improvement metrics dashboard"
+          ],
+          "owner": "BI Team + All Process Owners",
+          "priority": "MEDIUM"
+        }
+      ],
+      "deliverables": [
+        "ITIL/ISO compliance certification",
+        "Process maturity assessment report",
+        "Comprehensive training program",
+        "Advanced analytics dashboard",
+        "Continuous improvement framework"
+      ]
+    }
+  }
+}

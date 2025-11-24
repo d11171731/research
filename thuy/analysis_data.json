@@ -1,0 +1,789 @@
+{
+  "total_findings": 75,
+  "by_area": {
+    "QC": 21,
+    "Change Management": 19,
+    "Configuration": 11,
+    "Request fullfilment Management": 6,
+    "Incident": 6,
+    "Process QA": 6,
+    "3rd party Management": 6
+  },
+  "by_priority": {
+    "CRITICAL": 29,
+    "HIGH": 23,
+    "MEDIUM": 23
+  },
+  "owners": {
+    "Change Management": 4,
+    "CAB team": 1,
+    "PQA": 7,
+    "Infra": 3,
+    "Development team": 4,
+    "CAB": 2,
+    "Change Management Team": 13,
+    "Product team": 1,
+    "Incident Management Team": 1,
+    "Trao đổi thêm với Devops": 1,
+    "DevOps Team": 2,
+    "VHUD": 2,
+    "Development Team": 2,
+    "BI team?": 1,
+    "Service Owner": 1,
+    "ITSM lead": 3,
+    "L&D": 1,
+    "HR": 2
+  },
+  "findings": [
+    {
+      "STT": 1,
+      "Area": "Request fullfilment Management",
+      "Finding": "Metrics not tracked (SLA %, cycle time)",
+      "Priority": "CRITICAL",
+      "Impact": "Cannot measure performance, justify resources",
+      "Action": "Setup dashboard tracking 5 key metrics",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 2,
+      "Area": "Request fullfilment Management",
+      "Finding": "NO quality & CSAT measurement",
+      "Priority": "CRITICAL",
+      "Impact": "Don't know if users happy or quality good",
+      "Action": "Create CSAT survey, quality metrics",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 3,
+      "Area": "Request fullfilment Management",
+      "Finding": "Weak ITSM integration (all manual)",
+      "Priority": "CRITICAL",
+      "Impact": "Cannot do impact analysis, leverage data",
+      "Action": "Auto-link incidents/changes, CMDB update",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 4,
+      "Area": "Request fullfilment Management",
+      "Finding": "NO formal service review",
+      "Priority": "CRITICAL",
+      "Impact": "Problems repeat, trends not identified",
+      "Action": "Setup monthly review with bottleneck analysis",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 5,
+      "Area": "Request fullfilment Management",
+      "Finding": "Weak user engagement (25%)",
+      "Priority": "HIGH",
+      "Impact": "Users don't know SLA, no feedback channel",
+      "Action": "Communicate SLA clearly, setup feedback",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 6,
+      "Area": "Request fullfilment Management",
+      "Finding": "NO business service mapping (25%)",
+      "Priority": "HIGH",
+      "Impact": "Cannot prioritize by business impact",
+      "Action": "Map requests to services, improve prioritization",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 7,
+      "Area": "Incident",
+      "Finding": "Incident Manager role not defined",
+      "Priority": "CRITICAL",
+      "Impact": "No one owns IM quality",
+      "Action": "Define & assign Incident Manager role + responsibilities",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 8,
+      "Area": "Incident",
+      "Finding": "SLA not approved per severity (P1-P4)",
+      "Priority": "CRITICAL",
+      "Impact": "No resolution target → cannot measure performance",
+      "Action": "Define SLA per severity, get approval",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 9,
+      "Area": "Incident",
+      "Finding": "Escalation path ad-hoc, not formal",
+      "Priority": "CRITICAL",
+      "Impact": "Incidents escalate slowly → delayed resolution",
+      "Action": "Create escalation matrix by severity/type",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 10,
+      "Area": "Incident",
+      "Finding": "Workflow automation 0% - all manual",
+      "Priority": "HIGH",
+      "Impact": "Manual work = 80% admin time → slow response",
+      "Action": "Setup auto incident creation, auto-assign, priority",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 11,
+      "Area": "Incident",
+      "Finding": "ITSM integration 0% (Problem/Change/CMDB)",
+      "Priority": "CRITICAL",
+      "Impact": "Cannot do impact analysis → wrong decisions",
+      "Action": "Integrate incidents with Problem/Change/CMDB",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 12,
+      "Area": "Incident",
+      "Finding": "ITIL/ISO compliance 0%",
+      "Priority": "HIGH",
+      "Impact": "Not industry standard → audit risk",
+      "Action": "Implement ITIL IM practices, plan audit",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 13,
+      "Area": "Change Management",
+      "Finding": "Phân tích rủi ro chưa có thang đánh giá và phân loại",
+      "Priority": "CRITICAL",
+      "Impact": "Không phân loại mức rủi ro, không có escalation path, tất cả đều theo luồng chung nên có thể sẽ bị chậm do không có đánh giấu ưu tiên",
+      "Action": "- Tạo thang đánh giá rủi ro 1-5\n- Xác định các tiêu chí thay đổi cao rủi ro\n- Tạo đường dẫn escalation (escalation path)\n- Ghi nhận thành tài liệu",
+      "Owner": "Change Management,  CAB team, PQA",
+      "Timeline": NaN
+    },
+    {
+      "STT": 14,
+      "Area": "Change Management",
+      "Finding": "Chưa có quy định về lưu trữ và backup dữ liệu CR",
+      "Priority": "CRITICAL",
+      "Impact": "- Không biết thời gian lưu giữ dữ liệu RFC\n- Không có Kế hoạch khôi phục khi xảy ra sự cố (DR)\n- Mất khả năng truy vết lịch sử thay đổi (traceability)",
+      "Action": "- Định rõ chính sách lưu giữ (thời hạn lưu trữ, theo iTIL thì 1-3-5 năm tùy theo Tier, ISO 27001: 5 năm)\n- Tạo quy trình sao lưu hàng tháng\n- Test quy trình khôi phục (restore)",
+      "Owner": "Change Management, Infra",
+      "Timeline": NaN
+    },
+    {
+      "STT": 15,
+      "Area": "Change Management",
+      "Finding": "Chưa triển khai Audit đối với hoạt động CM",
+      "Priority": "CRITICAL",
+      "Impact": "Không track được tuân thủ với chính sách, không đánh giá được các rủi ro vi phạm và có ",
+      "Action": "- Lên lịch compliance audit\n- Xác định phạm vi audit & danh sách kiểm tra (checklist)\n- Ghi lại các vi phạm & Kế hoạch khắc phục",
+      "Owner": "Change Management, PQA",
+      "Timeline": NaN
+    },
+    {
+      "STT": 16,
+      "Area": "Change Management",
+      "Finding": "CR template quá dài, nhiều thông tin chưa có cơ chế đánh giá, xác thực (ví dụ: Đánh giá ảnh hưởng, đánh giá rủi ro…)",
+      "Priority": "HIGH",
+      "Impact": "Khó khăn cho người tạo CR và review/phê duyệt CR",
+      "Action": "- Đơn giản hóa template theo loại CR\n- Bổ sung đánh giá ảnh hưởng, đánh giá rủi ro\n- Bổ sung KMS cho tra cứu các hướng dẫn liên quan CR, CM",
+      "Owner": "Change Management, Development team, CAB, PQA",
+      "Timeline": NaN
+    },
+    {
+      "STT": 17,
+      "Area": "Change Management",
+      "Finding": "Communication Plan chưa có hướng dẫn cụ thể",
+      "Priority": "HIGH",
+      "Impact": "- Team giao tiếp ad-hoc (không có quy trình)\n- Thông tin không nhất quán giữa các team\n- Rủi ro ảnh hưởng đến uy tín do phối hợp truyền thông đến KH",
+      "Action": "- Xác định các nhóm đối tượng cần thông báo (stakeholder groups)\n- Lên lịch thông báo: trước/trong/sau thay đổi (pre/during/post-change)\n- Ghi nhận thành tài liệu",
+      "Owner": "Change Management Team, Product team, PQA",
+      "Timeline": NaN
+    },
+    {
+      "STT": 18,
+      "Area": "Change Management",
+      "Finding": "CAB thiếu quy định tiêu chí đánh giá & họp định kỳ",
+      "Priority": "HIGH",
+      "Impact": "- Thiếu tiêu chí đánh giá ổn định có thể dẫn tới quyết định của CAB không nhất quán\n- Không có tracking định kỳ",
+      "Action": "- Xác định tiêu chí đánh giá chính\n- Xác định lịch họp CAB định kỳ\n- Ghi nhận decision log",
+      "Owner": "Change Management Team, CAB",
+      "Timeline": NaN
+    },
+    {
+      "STT": 19,
+      "Area": "Change Management",
+      "Finding": "RACI chưa có tài liệu chính thức",
+      "Priority": "HIGH",
+      "Impact": "- Không rõ trách nhiệm và quyền hạn, có thể gây xung đột trong quyết định CM\n- Khó Audit",
+      "Action": "- Ban hành bổ sung RACI\n- Có cơ chế cập nhật khi phát sinh thay đổi",
+      "Owner": "Change Management Team, PQA",
+      "Timeline": NaN
+    },
+    {
+      "STT": 20,
+      "Area": "Change Management",
+      "Finding": "Change Failure Request (CFR) Root Causes chưa có phân tích chiến lược",
+      "Priority": "HIGH",
+      "Impact": "Không hiểu nguyên nhân gốc của các request Fail sẽ khó improve",
+      "Action": "Phân tích top 3 nguyên nhân gốc của các CFR để có kế hoạch cải thiện",
+      "Owner": "Change Management Team, Development team, PQA",
+      "Timeline": NaN
+    },
+    {
+      "STT": 21,
+      "Area": "Change Management",
+      "Finding": "Incident-Change Linkage thực hiện manual",
+      "Priority": "HIGH",
+      "Impact": "\t- Incident investigation cần truy vết thủ công\n- Effort cao, thời gian xử lý (TAT) chậm",
+      "Action": "\t- Xây dựng query tự động hóa liên kết incident-change\n- Tích hợp API\n- Test tự động hóa & đào tạo team",
+      "Owner": "Change Management Team, Incident Management Team, Development team, PQA",
+      "Timeline": NaN
+    },
+    {
+      "STT": 22,
+      "Area": "Change Management",
+      "Finding": "CMDB Integration chưa thiết lập",
+      "Priority": "HIGH",
+      "Impact": "\t- Không biết thay đổi ảnh hưởng những cấu hình nào \n- Không track dependencies giữa các CIs\n- Khó phân tích nguyên nhân gốc (root cause analysis)",
+      "Action": "- Xác định các CIs chính yếu (core CIs)\n- Ánh xạ Change Request với CIs\n- Tích hợp CMDB với Jira\n- Tự động cập nhật khi deployment",
+      "Owner": "Change Management Team, Development team, Infra",
+      "Timeline": NaN
+    },
+    {
+      "STT": 23,
+      "Area": "Change Management",
+      "Finding": "Sonar đang tạm dừng hoạt động",
+      "Priority": "HIGH",
+      "Impact": "Quality control yếu",
+      "Action": "- Restart lại Sonar",
+      "Owner": "Trao đổi thêm với Devops",
+      "Timeline": NaN
+    },
+    {
+      "STT": 24,
+      "Area": "Change Management",
+      "Finding": "PIR chưa kết nối CI/CD, kiểm tra manual",
+      "Priority": "MEDIUM",
+      "Impact": "- Không biết PIR có match với deployment thực tế Không\n- Không track Tự động success metrics",
+      "Action": "- Tự động hóa kết nối giữa Jira & deployment tools\n- Tạo PIR success metrics\n- Tự động kích hoạt PIR khi deploy",
+      "Owner": "Change Management Team, DevOps Team, VHUD",
+      "Timeline": NaN
+    },
+    {
+      "STT": 25,
+      "Area": "Change Management",
+      "Finding": "Maintenance Window chưa có quy định criticality-based",
+      "Priority": "MEDIUM",
+      "Impact": "- Truyền Thông Không đồng nhất\n- Khách hàng Không biết lịch maintenance",
+      "Action": "\t- Định rõ chính sách maintenance window theo criticality (P1/P2/P3)\n- Tạo template thông báo\n- Cập nhật SLA",
+      "Owner": "Change Management Team, DevOps Team, VHUD",
+      "Timeline": NaN
+    },
+    {
+      "STT": 26,
+      "Area": "Change Management",
+      "Finding": "Change Freeze Periods chưa có quy định cụ thể",
+      "Priority": "MEDIUM",
+      "Impact": "Ảnh hưởng Sprint Planning",
+      "Action": "- Tạo chính sách freeze period\n- Thông báo 30 ngày trước (advance notification)\n- Truyền thông lịch hàng quý\n- Tích hợp vào sprint planning",
+      "Owner": "Change Management Team, Development Team",
+      "Timeline": NaN
+    },
+    {
+      "STT": 27,
+      "Area": "Change Management",
+      "Finding": "Dashboard chưa tự động lấy dữ liệu theo thời gian chọn",
+      "Priority": "MEDIUM",
+      "Impact": "- Lãnh đạo Không có data real-time để quyết định\n- Tracking SLA Không chính Xác",
+      "Action": "- Xây dựng tự động hóa dashboard (API/query)\n- Thêm date picker để chọn khoảng thời gian\n- Xuất bản hàng tuần/tháng\n- Setup real-time alerts",
+      "Owner": "Change Management Team, BI team?",
+      "Timeline": NaN
+    },
+    {
+      "STT": 28,
+      "Area": "Change Management",
+      "Finding": "Batch Approval cho nhóm change liên quan chưa có",
+      "Priority": "MEDIUM",
+      "Impact": "- Approval process Không tối ưu",
+      "Action": "- Ánh xạ services với hệ thống hiện tại\n- Nhóm changes theo service\n- cập nhật batch Approval workflow\n- Test quy trình",
+      "Owner": "Change Management Team, Service Owner, Infra, Development Team",
+      "Timeline": NaN
+    },
+    {
+      "STT": 29,
+      "Area": "Change Management",
+      "Finding": "Feedback & Improvement chưa có backlog cụ thể",
+      "Priority": "MEDIUM",
+      "Impact": "Chưa có roadmap cho cải thiện nên chưa có hiệu quả",
+      "Action": "\t- Tạo template improvement backlog\n- Review hàng tháng với team\n- Ưu tiên theo tác động (impact) & nỗ lực (effort)\n- Theo dõi hoàn thành",
+      "Owner": "Change Management Team, ITSM lead",
+      "Timeline": NaN
+    },
+    {
+      "STT": 30,
+      "Area": "Change Management",
+      "Finding": "Training CM chưa đặc thù & chuyên sâu",
+      "Priority": "MEDIUM",
+      "Impact": "Chưa có training cho CM, chủ yếu tự học",
+      "Action": "- Thiết kế training CM chuyên sâu (ITIL 4 Practice)",
+      "Owner": "Change Management Team, ITSM lead, L&D, HR",
+      "Timeline": NaN
+    },
+    {
+      "STT": 31,
+      "Area": "Change Management",
+      "Finding": "Chứng chỉ & yêu cầu năng lực CM chưa định rõ",
+      "Priority": "MEDIUM",
+      "Impact": "- Không có Kế hoạch tuyển dụng\n- rủi ro Mất nhân tài, năng lực Không scale",
+      "Action": "Xây dựng 4P next gen cho CM",
+      "Owner": "ITSM lead, HR",
+      "Timeline": NaN
+    },
+    {
+      "STT": 32,
+      "Area": "Configuration",
+      "Finding": "Chính sách CMDB chưa formal",
+      "Priority": "CRITICAL",
+      "Impact": "Không rõ scope, CI types, roles → quản lý không nhất quán",
+      "Action": "Tạo CMDB Policy Charter document",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 33,
+      "Area": "Configuration",
+      "Finding": "Không có tool CMDB - sử dụng Excel",
+      "Priority": "CRITICAL",
+      "Impact": "Không thể tự động, không relationship mapping, không integration",
+      "Action": "Đánh giá & select CMDB tool (ServiceNow/Remedy)",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 34,
+      "Area": "Configuration",
+      "Finding": "Chưa map CI relationships & service dependencies",
+      "Priority": "HIGH",
+      "Impact": "Không biết service nào phụ thuộc CI nào → không tính impact được",
+      "Action": "Map service-to-CI cho top 10 services",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 35,
+      "Area": "Configuration",
+      "Finding": "Không có audit trail & audit process",
+      "Priority": "HIGH",
+      "Impact": "Không track thay đổi (ai, khi nào) → rủi ro compliance",
+      "Action": "Setup audit logging, monthly audits",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 36,
+      "Area": "Configuration",
+      "Finding": "CI Owners không được gán rõ ràng",
+      "Priority": "HIGH",
+      "Impact": "Không ai chịu trách nhiệm keep data accurate → dữ liệu lỗi thời",
+      "Action": "Gán CI Owner cho mỗi hệ thống",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 37,
+      "Area": "Configuration",
+      "Finding": "Không có CMDB Steward role & governance",
+      "Priority": "HIGH",
+      "Impact": "Không ai quản lý tổng thể CMDB, conflicts không resolve",
+      "Action": "Assign CMDB Steward",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 38,
+      "Area": "Configuration",
+      "Finding": "CMDB không integrate Incident & Change",
+      "Priority": "HIGH",
+      "Impact": "Incident/Change workflows không dùng CMDB data → không update",
+      "Action": "Integrate CMDB with tools",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 39,
+      "Area": "Configuration",
+      "Finding": "Không có data quality standards",
+      "Priority": "HIGH",
+      "Impact": "Duplicate CIs, inconsistent data → không tin tưởng CMDB",
+      "Action": "Define quality standards, validation",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 40,
+      "Area": "Configuration",
+      "Finding": "Không có auto-population từ monitoring tools",
+      "Priority": "MEDIUM",
+      "Impact": "Manual data entry → thời gian lãng phí, data lag",
+      "Action": "Setup data feeds từ monitoring tools",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 41,
+      "Area": "Configuration",
+      "Finding": "CMDB team part-time, không training",
+      "Priority": "MEDIUM",
+      "Impact": "CMDB không ưu tiên, team burnout, knowledge loss",
+      "Action": "Assign dedicated CMDB Admin, provide training",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 42,
+      "Area": "Configuration",
+      "Finding": "Không có KPI đo CMDB effectiveness",
+      "Priority": "MEDIUM",
+      "Impact": "Không biết coverage, quality → không justify investment",
+      "Action": "Define metrics, create dashboard",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 43,
+      "Area": "Process QA",
+      "Finding": "NO audit checklists (IM, CM, PM)",
+      "Priority": "CRITICAL",
+      "Impact": "Audits ad-hoc, inconsistent",
+      "Action": "Create standardized checklists",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 44,
+      "Area": "Process QA",
+      "Finding": "Audit frequency yearly only",
+      "Priority": "CRITICAL",
+      "Impact": "Cannot identify trends",
+      "Action": "Plan quarterly audits",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 45,
+      "Area": "Process QA",
+      "Finding": "Coverage only 3% (1/30 processes)",
+      "Priority": "CRITICAL",
+      "Impact": "Most processes never audited",
+      "Action": "Create 3-year plan for 80% coverage",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 46,
+      "Area": "Process QA",
+      "Finding": "Metrics almost ZERO (10%)",
+      "Priority": "CRITICAL",
+      "Impact": "Cannot measure PQA effectiveness",
+      "Action": "Define & track 5 key metrics",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 47,
+      "Area": "Process QA",
+      "Finding": "NO escalation for critical findings",
+      "Priority": "CRITICAL",
+      "Impact": "Critical issues ignored",
+      "Action": "Define escalation procedure",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 48,
+      "Area": "Process QA",
+      "Finding": "NO maturity assessment",
+      "Priority": "MEDIUM",
+      "Impact": "Cannot prioritize improvements",
+      "Action": "Use maturity framework (ITIL)",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 49,
+      "Area": "3rd party Management",
+      "Finding": "NO formal 3PM Policy",
+      "Priority": "CRITICAL",
+      "Impact": "Write formal policy, CIO approve",
+      "Action": NaN,
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 50,
+      "Area": "3rd party Management",
+      "Finding": "NO Vendor Classification",
+      "Priority": "CRITICAL",
+      "Impact": "Create critical/high/medium/low matrix",
+      "Action": NaN,
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 51,
+      "Area": "3rd party Management",
+      "Finding": "NO SLA Monitoring",
+      "Priority": "CRITICAL",
+      "Impact": "Setup SLA dashboard, weekly reports",
+      "Action": NaN,
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 52,
+      "Area": "3rd party Management",
+      "Finding": "NO Vendor Metrics",
+      "Priority": "CRITICAL",
+      "Impact": "Define & track 5-7 KPIs per vendor",
+      "Action": NaN,
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 53,
+      "Area": "3rd party Management",
+      "Finding": "NO Risk Assessment",
+      "Priority": "HIGH",
+      "Impact": "Define risk assessment framework",
+      "Action": NaN,
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 54,
+      "Area": "3rd party Management",
+      "Finding": "NO Roles & Authority",
+      "Priority": "HIGH",
+      "Impact": "Document vendor manager roles",
+      "Action": NaN,
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 55,
+      "Area": "QC",
+      "Finding": "Không có chiến lược và roadmap QC rõ ràng",
+      "Priority": "CRITICAL",
+      "Impact": "Thiếu định hướng dài hạn, không thể đo lường tiến bộ, không liên kết với mục tiêu kinh doanh",
+      "Action": "Xây dựng QC Strategy 3-5 năm với roadmap chi tiết, KPIs đo lường, và liên kết trực tiếp với business objectives",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 56,
+      "Area": "QC",
+      "Finding": "Không có quy trình test planning được chuẩn hóa",
+      "Priority": "CRITICAL",
+      "Impact": "Thiếu tính nhất quán, khó đảm bảo chất lượng test, không thể quản lý rủi ro hiệu quả",
+      "Action": "Thiết lập quy trình Test Planning chuẩn với template, timeline, và approval workflow rõ ràng",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 57,
+      "Area": "QC",
+      "Finding": "Chưa có metrics và KPIs cho QA/QC",
+      "Priority": "CRITICAL",
+      "Impact": "Không thể đo lường hiệu quả QC, không có cơ sở để cải tiến, không thể chứng minh giá trị",
+      "Action": "Thiết lập bộ KPIs QC core (Test Coverage, Defect Density, Automation Rate, etc.) với targets và dashboards",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 58,
+      "Area": "QC",
+      "Finding": "Không đo lường được test coverage",
+      "Priority": "CRITICAL",
+      "Impact": "Không biết được mức độ test đầy đủ, rủi ro cao về untested code, không thể tối ưu effort",
+      "Action": "Triển khai công cụ đo coverage (code coverage, requirement coverage) và thiết lập target tối thiểu",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 59,
+      "Area": "QC",
+      "Finding": "Không có chiến lược test automation",
+      "Priority": "CRITICAL",
+      "Impact": "Automation không có hướng đi rõ ràng, lãng phí resources, ROI thấp",
+      "Action": "Xây dựng Test Automation Strategy với roadmap, tool selection, training plan, và ROI targets",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 60,
+      "Area": "QC",
+      "Finding": "Không có quy trình test data management",
+      "Priority": "CRITICAL",
+      "Impact": "Test data không đáng tin cậy, rủi ro bảo mật cao, tốn thời gian setup manual",
+      "Action": "Thiết lập Test Data Management strategy với data provisioning, masking, và governance process",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 61,
+      "Area": "QC",
+      "Finding": "Không tuân thủ các chuẩn QC quốc tế",
+      "Priority": "CRITICAL",
+      "Impact": "Không đáp ứng yêu cầu compliance, khó đối chiếu với best practices, rủi ro trong audit",
+      "Action": "Áp dụng framework chuẩn (ISTQB, ISO 29119) và thiết lập traceability từ requirements đến test results",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 62,
+      "Area": "QC",
+      "Finding": "Quy trình Defect Management không được chuẩn hóa",
+      "Priority": "HIGH",
+      "Impact": "Bugs không được xử lý nhất quán, khó prioritize, không có accountability",
+      "Action": "Chuẩn hóa Defect Management process với priority/severity matrix, SLA theo mức độ, và workflow rõ ràng",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 63,
+      "Area": "QC",
+      "Finding": "Quality gates không được thực thi đầy đủ",
+      "Priority": "HIGH",
+      "Impact": "Code quality không được đảm bảo, bugs có thể leak sang production",
+      "Action": "Thực thi quality gates nghiêm ngặt: build fail khi test fail, mandatory test coverage checks",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 64,
+      "Area": "QC",
+      "Finding": "Chỉ có 1 test environment, không có configuration management",
+      "Priority": "HIGH",
+      "Impact": "Bottleneck trong testing, conflicts giữa các team, không thể test parallel",
+      "Action": "Thiết lập multiple test environments (Dev, SIT, UAT) với automation provisioning và config management",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 65,
+      "Area": "QC",
+      "Finding": "Chính sách QC chỉ ở mức high-level và hiếm khi được cập nhật",
+      "Priority": "MEDIUM",
+      "Impact": "Chính sách không đủ chi tiết để hướng dẫn thực thi, không theo kịp thực tế",
+      "Action": "Phát triển QC Policy riêng biệt, chi tiết hơn với cơ chế review định kỳ (6 tháng/lần)",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 66,
+      "Area": "QC",
+      "Finding": "RACI matrix không được tài liệu hóa",
+      "Priority": "MEDIUM",
+      "Impact": "Thiếu clarity về trách nhiệm khi có thay đổi team hoặc escalation",
+      "Action": "Tài liệu hóa RACI matrix cho tất cả QC activities và update định kỳ",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 67,
+      "Area": "QC",
+      "Finding": "Quy trình regression testing không rõ ràng",
+      "Priority": "MEDIUM",
+      "Impact": "Edge cases không được cover, rủi ro regression bugs",
+      "Action": "Chuẩn hóa regression testing process, tăng automation coverage, bao gồm edge cases",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 68,
+      "Area": "QC",
+      "Finding": "Performance testing chỉ làm theo yêu cầu, không có benchmarks",
+      "Priority": "MEDIUM",
+      "Impact": "Performance issues có thể không được phát hiện sớm, không có baseline để so sánh",
+      "Action": "Thiết lập performance benchmarks và làm load testing định kỳ cho critical systems",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 69,
+      "Area": "QC",
+      "Finding": "Skill gaps đáng kể và không có training có tổ chức",
+      "Priority": "MEDIUM",
+      "Impact": "Team capability không được phát triển, phụ thuộc vào self-learning",
+      "Action": "Thiết lập training program có cấu trúc với focus vào automation, test design, và domain knowledge",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 70,
+      "Area": "QC",
+      "Finding": "Không có defect triage process định kỳ",
+      "Priority": "MEDIUM",
+      "Impact": "Bugs resolution có thể chậm, thiếu forum để discuss technical issues",
+      "Action": "Thiết lập defect triage meetings định kỳ (weekly) giữa QC và Dev",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 71,
+      "Area": "QC",
+      "Finding": "Không có test execution reports",
+      "Priority": "MEDIUM",
+      "Impact": "Stakeholders không có visibility về test progress và quality status",
+      "Action": "Thiết lập automated test reporting với key metrics và trends",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 72,
+      "Area": "QC",
+      "Finding": "Tỷ lệ team biết automation tools thấp (25-30%)",
+      "Priority": "MEDIUM",
+      "Impact": "Automation không scale được, phụ thuộc vào một số người",
+      "Action": "Training toàn bộ QC team về automation tools, thiết lập automation champions",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 73,
+      "Area": "QC",
+      "Finding": "Không có release testing process, rollback plan không chi tiết",
+      "Priority": "MEDIUM",
+      "Impact": "Rủi ro cao khi release production, không có safety net",
+      "Action": "Thiết lập release testing phase với checklist và rollback plan chi tiết",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 74,
+      "Area": "QC",
+      "Finding": "Không có quy trình continuous improvement và roadmap nâng cao capability",
+      "Priority": "MEDIUM",
+      "Impact": "QC capability không được cải thiện có hệ thống",
+      "Action": "Thiết lập continuous improvement process (retrospectives, lessons learned) và maturity roadmap",
+      "Owner": NaN,
+      "Timeline": NaN
+    },
+    {
+      "STT": 75,
+      "Area": "QC",
+      "Finding": "Không rõ về tuân thủ GDPR và data protection trong testing",
+      "Priority": "MEDIUM",
+      "Impact": "Rủi ro compliance với data protection regulations",
+      "Action": "Đánh giá compliance gap và thiết lập data protection controls cho test data",
+      "Owner": NaN,
+      "Timeline": NaN
+    }
+  ]
+}

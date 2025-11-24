@@ -1,0 +1,764 @@
+{
+  "Sheet1": [
+    {
+      "Unnamed: 0": "#",
+      "Unnamed: 1": "Area",
+      "Unnamed: 2": "Finding",
+      "Unnamed: 3": "% Current",
+      "Unnamed: 4": "Impact",
+      "Unnamed: 5": "Action",
+      "Unnamed: 6": "Owner",
+      "Unnamed: 7": "Timeline"
+    },
+    {
+      "Unnamed: 0": 1,
+      "Unnamed: 1": "Request fullfilment Management",
+      "Unnamed: 2": "Metrics not tracked (SLA %, cycle time)",
+      "Unnamed: 3": "CRITICAL",
+      "Unnamed: 4": "Cannot measure performance, justify resources",
+      "Unnamed: 5": "Setup dashboard tracking 5 key metrics",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 2,
+      "Unnamed: 1": "Request fullfilment Management",
+      "Unnamed: 2": "NO quality & CSAT measurement",
+      "Unnamed: 3": "CRITICAL",
+      "Unnamed: 4": "Don't know if users happy or quality good",
+      "Unnamed: 5": "Create CSAT survey, quality metrics",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 3,
+      "Unnamed: 1": "Request fullfilment Management",
+      "Unnamed: 2": "Weak ITSM integration (all manual)",
+      "Unnamed: 3": "CRITICAL",
+      "Unnamed: 4": "Cannot do impact analysis, leverage data",
+      "Unnamed: 5": "Auto-link incidents/changes, CMDB update",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 4,
+      "Unnamed: 1": "Request fullfilment Management",
+      "Unnamed: 2": "NO formal service review",
+      "Unnamed: 3": "CRITICAL",
+      "Unnamed: 4": "Problems repeat, trends not identified",
+      "Unnamed: 5": "Setup monthly review with bottleneck analysis",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 5,
+      "Unnamed: 1": "Request fullfilment Management",
+      "Unnamed: 2": "Weak user engagement (25%)",
+      "Unnamed: 3": "HIGH",
+      "Unnamed: 4": "Users don't know SLA, no feedback channel",
+      "Unnamed: 5": "Communicate SLA clearly, setup feedback",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 6,
+      "Unnamed: 1": "Request fullfilment Management",
+      "Unnamed: 2": "NO business service mapping (25%)",
+      "Unnamed: 3": "HIGH",
+      "Unnamed: 4": "Cannot prioritize by business impact",
+      "Unnamed: 5": "Map requests to services, improve prioritization",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 7,
+      "Unnamed: 1": "Incident",
+      "Unnamed: 2": "Incident Manager role not defined",
+      "Unnamed: 3": "CRITICAL",
+      "Unnamed: 4": "No one owns IM quality",
+      "Unnamed: 5": "Define & assign Incident Manager role + responsibilities",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 8,
+      "Unnamed: 1": "Incident",
+      "Unnamed: 2": "SLA not approved per severity (P1-P4)",
+      "Unnamed: 3": "CRITICAL",
+      "Unnamed: 4": "No resolution target → cannot measure performance",
+      "Unnamed: 5": "Define SLA per severity, get approval",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 9,
+      "Unnamed: 1": "Incident",
+      "Unnamed: 2": "Escalation path ad-hoc, not formal",
+      "Unnamed: 3": "CRITICAL",
+      "Unnamed: 4": "Incidents escalate slowly → delayed resolution",
+      "Unnamed: 5": "Create escalation matrix by severity/type",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 10,
+      "Unnamed: 1": "Incident",
+      "Unnamed: 2": "Workflow automation 0% - all manual",
+      "Unnamed: 3": "HIGH",
+      "Unnamed: 4": "Manual work = 80% admin time → slow response",
+      "Unnamed: 5": "Setup auto incident creation, auto-assign, priority",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 11,
+      "Unnamed: 1": "Incident",
+      "Unnamed: 2": "ITSM integration 0% (Problem/Change/CMDB)",
+      "Unnamed: 3": "CRITICAL",
+      "Unnamed: 4": "Cannot do impact analysis → wrong decisions",
+      "Unnamed: 5": "Integrate incidents with Problem/Change/CMDB",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 12,
+      "Unnamed: 1": "Incident",
+      "Unnamed: 2": "ITIL/ISO compliance 0%",
+      "Unnamed: 3": "HIGH",
+      "Unnamed: 4": "Not industry standard → audit risk",
+      "Unnamed: 5": "Implement ITIL IM practices, plan audit",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 13,
+      "Unnamed: 1": "Change Management",
+      "Unnamed: 2": "Phân tích rủi ro chưa có thang đánh giá và phân loại",
+      "Unnamed: 3": "CRITICAL",
+      "Unnamed: 4": "Không phân loại mức rủi ro, không có escalation path, tất cả đều theo luồng chung nên có thể sẽ bị chậm do không có đánh giấu ưu tiên",
+      "Unnamed: 5": "- Tạo thang đánh giá rủi ro 1-5\n- Xác định các tiêu chí thay đổi cao rủi ro\n- Tạo đường dẫn escalation (escalation path)\n- Ghi nhận thành tài liệu",
+      "Unnamed: 6": "Change Management,  CAB team, PQA",
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 14,
+      "Unnamed: 1": "Change Management",
+      "Unnamed: 2": "Chưa có quy định về lưu trữ và backup dữ liệu CR",
+      "Unnamed: 3": "CRITICAL",
+      "Unnamed: 4": "- Không biết thời gian lưu giữ dữ liệu RFC\n- Không có Kế hoạch khôi phục khi xảy ra sự cố (DR)\n- Mất khả năng truy vết lịch sử thay đổi (traceability)",
+      "Unnamed: 5": "- Định rõ chính sách lưu giữ (thời hạn lưu trữ, theo iTIL thì 1-3-5 năm tùy theo Tier, ISO 27001: 5 năm)\n- Tạo quy trình sao lưu hàng tháng\n- Test quy trình khôi phục (restore)",
+      "Unnamed: 6": "Change Management, Infra",
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 15,
+      "Unnamed: 1": "Change Management",
+      "Unnamed: 2": "Chưa triển khai Audit đối với hoạt động CM",
+      "Unnamed: 3": "CRITICAL",
+      "Unnamed: 4": "Không track được tuân thủ với chính sách, không đánh giá được các rủi ro vi phạm và có ",
+      "Unnamed: 5": "- Lên lịch compliance audit\n- Xác định phạm vi audit & danh sách kiểm tra (checklist)\n- Ghi lại các vi phạm & Kế hoạch khắc phục",
+      "Unnamed: 6": "Change Management, PQA",
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 16,
+      "Unnamed: 1": "Change Management",
+      "Unnamed: 2": "CR template quá dài, nhiều thông tin chưa có cơ chế đánh giá, xác thực (ví dụ: Đánh giá ảnh hưởng, đánh giá rủi ro…)",
+      "Unnamed: 3": "HIGH",
+      "Unnamed: 4": "Khó khăn cho người tạo CR và review/phê duyệt CR",
+      "Unnamed: 5": "- Đơn giản hóa template theo loại CR\n- Bổ sung đánh giá ảnh hưởng, đánh giá rủi ro\n- Bổ sung KMS cho tra cứu các hướng dẫn liên quan CR, CM",
+      "Unnamed: 6": "Change Management, Development team, CAB, PQA",
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 17,
+      "Unnamed: 1": "Change Management",
+      "Unnamed: 2": "Communication Plan chưa có hướng dẫn cụ thể",
+      "Unnamed: 3": "HIGH",
+      "Unnamed: 4": "- Team giao tiếp ad-hoc (không có quy trình)\n- Thông tin không nhất quán giữa các team\n- Rủi ro ảnh hưởng đến uy tín do phối hợp truyền thông đến KH",
+      "Unnamed: 5": "- Xác định các nhóm đối tượng cần thông báo (stakeholder groups)\n- Lên lịch thông báo: trước/trong/sau thay đổi (pre/during/post-change)\n- Ghi nhận thành tài liệu",
+      "Unnamed: 6": "Change Management Team, Product team, PQA",
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 18,
+      "Unnamed: 1": "Change Management",
+      "Unnamed: 2": "CAB thiếu quy định tiêu chí đánh giá & họp định kỳ",
+      "Unnamed: 3": "HIGH",
+      "Unnamed: 4": "- Thiếu tiêu chí đánh giá ổn định có thể dẫn tới quyết định của CAB không nhất quán\n- Không có tracking định kỳ",
+      "Unnamed: 5": "- Xác định tiêu chí đánh giá chính\n- Xác định lịch họp CAB định kỳ\n- Ghi nhận decision log",
+      "Unnamed: 6": "Change Management Team, CAB",
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 19,
+      "Unnamed: 1": "Change Management",
+      "Unnamed: 2": "RACI chưa có tài liệu chính thức",
+      "Unnamed: 3": "HIGH",
+      "Unnamed: 4": "- Không rõ trách nhiệm và quyền hạn, có thể gây xung đột trong quyết định CM\n- Khó Audit",
+      "Unnamed: 5": "- Ban hành bổ sung RACI\n- Có cơ chế cập nhật khi phát sinh thay đổi",
+      "Unnamed: 6": "Change Management Team, PQA",
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 20,
+      "Unnamed: 1": "Change Management",
+      "Unnamed: 2": "Change Failure Request (CFR) Root Causes chưa có phân tích chiến lược",
+      "Unnamed: 3": "HIGH",
+      "Unnamed: 4": "Không hiểu nguyên nhân gốc của các request Fail sẽ khó improve",
+      "Unnamed: 5": "Phân tích top 3 nguyên nhân gốc của các CFR để có kế hoạch cải thiện",
+      "Unnamed: 6": "Change Management Team, Development team, PQA",
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 21,
+      "Unnamed: 1": "Change Management",
+      "Unnamed: 2": "Incident-Change Linkage thực hiện manual",
+      "Unnamed: 3": "HIGH",
+      "Unnamed: 4": "\t- Incident investigation cần truy vết thủ công\n- Effort cao, thời gian xử lý (TAT) chậm",
+      "Unnamed: 5": "\t- Xây dựng query tự động hóa liên kết incident-change\n- Tích hợp API\n- Test tự động hóa & đào tạo team",
+      "Unnamed: 6": "Change Management Team, Incident Management Team, Development team, PQA",
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 22,
+      "Unnamed: 1": "Change Management",
+      "Unnamed: 2": "CMDB Integration chưa thiết lập",
+      "Unnamed: 3": "HIGH",
+      "Unnamed: 4": "\t- Không biết thay đổi ảnh hưởng những cấu hình nào \n- Không track dependencies giữa các CIs\n- Khó phân tích nguyên nhân gốc (root cause analysis)",
+      "Unnamed: 5": "- Xác định các CIs chính yếu (core CIs)\n- Ánh xạ Change Request với CIs\n- Tích hợp CMDB với Jira\n- Tự động cập nhật khi deployment",
+      "Unnamed: 6": "Change Management Team, Development team, Infra",
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 23,
+      "Unnamed: 1": "Change Management",
+      "Unnamed: 2": "Sonar đang tạm dừng hoạt động",
+      "Unnamed: 3": "HIGH",
+      "Unnamed: 4": "Quality control yếu",
+      "Unnamed: 5": "- Restart lại Sonar",
+      "Unnamed: 6": "Trao đổi thêm với Devops",
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 24,
+      "Unnamed: 1": "Change Management",
+      "Unnamed: 2": "PIR chưa kết nối CI/CD, kiểm tra manual",
+      "Unnamed: 3": "MEDIUM",
+      "Unnamed: 4": "- Không biết PIR có match với deployment thực tế Không\n- Không track Tự động success metrics",
+      "Unnamed: 5": "- Tự động hóa kết nối giữa Jira & deployment tools\n- Tạo PIR success metrics\n- Tự động kích hoạt PIR khi deploy",
+      "Unnamed: 6": "Change Management Team, DevOps Team, VHUD",
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 25,
+      "Unnamed: 1": "Change Management",
+      "Unnamed: 2": "Maintenance Window chưa có quy định criticality-based",
+      "Unnamed: 3": "MEDIUM",
+      "Unnamed: 4": "- Truyền Thông Không đồng nhất\n- Khách hàng Không biết lịch maintenance",
+      "Unnamed: 5": "\t- Định rõ chính sách maintenance window theo criticality (P1/P2/P3)\n- Tạo template thông báo\n- Cập nhật SLA",
+      "Unnamed: 6": "Change Management Team, DevOps Team, VHUD",
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 26,
+      "Unnamed: 1": "Change Management",
+      "Unnamed: 2": "Change Freeze Periods chưa có quy định cụ thể",
+      "Unnamed: 3": "MEDIUM",
+      "Unnamed: 4": "Ảnh hưởng Sprint Planning",
+      "Unnamed: 5": "- Tạo chính sách freeze period\n- Thông báo 30 ngày trước (advance notification)\n- Truyền thông lịch hàng quý\n- Tích hợp vào sprint planning",
+      "Unnamed: 6": "Change Management Team, Development Team",
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 27,
+      "Unnamed: 1": "Change Management",
+      "Unnamed: 2": "Dashboard chưa tự động lấy dữ liệu theo thời gian chọn",
+      "Unnamed: 3": "MEDIUM",
+      "Unnamed: 4": "- Lãnh đạo Không có data real-time để quyết định\n- Tracking SLA Không chính Xác",
+      "Unnamed: 5": "- Xây dựng tự động hóa dashboard (API/query)\n- Thêm date picker để chọn khoảng thời gian\n- Xuất bản hàng tuần/tháng\n- Setup real-time alerts",
+      "Unnamed: 6": "Change Management Team, BI team?",
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 28,
+      "Unnamed: 1": "Change Management",
+      "Unnamed: 2": "Batch Approval cho nhóm change liên quan chưa có",
+      "Unnamed: 3": "MEDIUM",
+      "Unnamed: 4": "- Approval process Không tối ưu",
+      "Unnamed: 5": "- Ánh xạ services với hệ thống hiện tại\n- Nhóm changes theo service\n- cập nhật batch Approval workflow\n- Test quy trình",
+      "Unnamed: 6": "Change Management Team, Service Owner, Infra, Development Team",
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 29,
+      "Unnamed: 1": "Change Management",
+      "Unnamed: 2": "Feedback & Improvement chưa có backlog cụ thể",
+      "Unnamed: 3": "MEDIUM",
+      "Unnamed: 4": "Chưa có roadmap cho cải thiện nên chưa có hiệu quả",
+      "Unnamed: 5": "\t- Tạo template improvement backlog\n- Review hàng tháng với team\n- Ưu tiên theo tác động (impact) & nỗ lực (effort)\n- Theo dõi hoàn thành",
+      "Unnamed: 6": "Change Management Team, ITSM lead",
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 30,
+      "Unnamed: 1": "Change Management",
+      "Unnamed: 2": "Training CM chưa đặc thù & chuyên sâu",
+      "Unnamed: 3": "MEDIUM",
+      "Unnamed: 4": "Chưa có training cho CM, chủ yếu tự học",
+      "Unnamed: 5": "- Thiết kế training CM chuyên sâu (ITIL 4 Practice)",
+      "Unnamed: 6": "Change Management Team, ITSM lead, L&D, HR",
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 31,
+      "Unnamed: 1": "Change Management",
+      "Unnamed: 2": "Chứng chỉ & yêu cầu năng lực CM chưa định rõ",
+      "Unnamed: 3": "MEDIUM",
+      "Unnamed: 4": "- Không có Kế hoạch tuyển dụng\n- rủi ro Mất nhân tài, năng lực Không scale",
+      "Unnamed: 5": "Xây dựng 4P next gen cho CM",
+      "Unnamed: 6": "ITSM lead, HR",
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 32,
+      "Unnamed: 1": "Configuration",
+      "Unnamed: 2": "Chính sách CMDB chưa formal",
+      "Unnamed: 3": "CRITICAL",
+      "Unnamed: 4": "Không rõ scope, CI types, roles → quản lý không nhất quán",
+      "Unnamed: 5": "Tạo CMDB Policy Charter document",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 33,
+      "Unnamed: 1": "Configuration",
+      "Unnamed: 2": "Không có tool CMDB - sử dụng Excel",
+      "Unnamed: 3": "CRITICAL",
+      "Unnamed: 4": "Không thể tự động, không relationship mapping, không integration",
+      "Unnamed: 5": "Đánh giá & select CMDB tool (ServiceNow/Remedy)",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 34,
+      "Unnamed: 1": "Configuration",
+      "Unnamed: 2": "Chưa map CI relationships & service dependencies",
+      "Unnamed: 3": "HIGH",
+      "Unnamed: 4": "Không biết service nào phụ thuộc CI nào → không tính impact được",
+      "Unnamed: 5": "Map service-to-CI cho top 10 services",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 35,
+      "Unnamed: 1": "Configuration",
+      "Unnamed: 2": "Không có audit trail & audit process",
+      "Unnamed: 3": "HIGH",
+      "Unnamed: 4": "Không track thay đổi (ai, khi nào) → rủi ro compliance",
+      "Unnamed: 5": "Setup audit logging, monthly audits",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 36,
+      "Unnamed: 1": "Configuration",
+      "Unnamed: 2": "CI Owners không được gán rõ ràng",
+      "Unnamed: 3": "HIGH",
+      "Unnamed: 4": "Không ai chịu trách nhiệm keep data accurate → dữ liệu lỗi thời",
+      "Unnamed: 5": "Gán CI Owner cho mỗi hệ thống",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 37,
+      "Unnamed: 1": "Configuration",
+      "Unnamed: 2": "Không có CMDB Steward role & governance",
+      "Unnamed: 3": "HIGH",
+      "Unnamed: 4": "Không ai quản lý tổng thể CMDB, conflicts không resolve",
+      "Unnamed: 5": "Assign CMDB Steward",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 38,
+      "Unnamed: 1": "Configuration",
+      "Unnamed: 2": "CMDB không integrate Incident & Change",
+      "Unnamed: 3": "HIGH",
+      "Unnamed: 4": "Incident/Change workflows không dùng CMDB data → không update",
+      "Unnamed: 5": "Integrate CMDB with tools",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 39,
+      "Unnamed: 1": "Configuration",
+      "Unnamed: 2": "Không có data quality standards",
+      "Unnamed: 3": "HIGH",
+      "Unnamed: 4": "Duplicate CIs, inconsistent data → không tin tưởng CMDB",
+      "Unnamed: 5": "Define quality standards, validation",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 40,
+      "Unnamed: 1": "Configuration",
+      "Unnamed: 2": "Không có auto-population từ monitoring tools",
+      "Unnamed: 3": "MEDIUM",
+      "Unnamed: 4": "Manual data entry → thời gian lãng phí, data lag",
+      "Unnamed: 5": "Setup data feeds từ monitoring tools",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 41,
+      "Unnamed: 1": "Configuration",
+      "Unnamed: 2": "CMDB team part-time, không training",
+      "Unnamed: 3": "MEDIUM",
+      "Unnamed: 4": "CMDB không ưu tiên, team burnout, knowledge loss",
+      "Unnamed: 5": "Assign dedicated CMDB Admin, provide training",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 42,
+      "Unnamed: 1": "Configuration",
+      "Unnamed: 2": "Không có KPI đo CMDB effectiveness",
+      "Unnamed: 3": "MEDIUM",
+      "Unnamed: 4": "Không biết coverage, quality → không justify investment",
+      "Unnamed: 5": "Define metrics, create dashboard",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 43,
+      "Unnamed: 1": "Process QA",
+      "Unnamed: 2": "NO audit checklists (IM, CM, PM)",
+      "Unnamed: 3": "CRITICAL",
+      "Unnamed: 4": "Audits ad-hoc, inconsistent",
+      "Unnamed: 5": "Create standardized checklists",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 44,
+      "Unnamed: 1": "Process QA",
+      "Unnamed: 2": "Audit frequency yearly only",
+      "Unnamed: 3": "CRITICAL",
+      "Unnamed: 4": "Cannot identify trends",
+      "Unnamed: 5": "Plan quarterly audits",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 45,
+      "Unnamed: 1": "Process QA",
+      "Unnamed: 2": "Coverage only 3% (1/30 processes)",
+      "Unnamed: 3": "CRITICAL",
+      "Unnamed: 4": "Most processes never audited",
+      "Unnamed: 5": "Create 3-year plan for 80% coverage",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 46,
+      "Unnamed: 1": "Process QA",
+      "Unnamed: 2": "Metrics almost ZERO (10%)",
+      "Unnamed: 3": "CRITICAL",
+      "Unnamed: 4": "Cannot measure PQA effectiveness",
+      "Unnamed: 5": "Define & track 5 key metrics",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 47,
+      "Unnamed: 1": "Process QA",
+      "Unnamed: 2": "NO escalation for critical findings",
+      "Unnamed: 3": "CRITICAL",
+      "Unnamed: 4": "Critical issues ignored",
+      "Unnamed: 5": "Define escalation procedure",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 48,
+      "Unnamed: 1": "Process QA",
+      "Unnamed: 2": "NO maturity assessment",
+      "Unnamed: 3": "MEDIUM",
+      "Unnamed: 4": "Cannot prioritize improvements",
+      "Unnamed: 5": "Use maturity framework (ITIL)",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 49,
+      "Unnamed: 1": "3rd party Management",
+      "Unnamed: 2": "NO formal 3PM Policy",
+      "Unnamed: 3": "CRITICAL",
+      "Unnamed: 4": "Write formal policy, CIO approve",
+      "Unnamed: 5": NaN,
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 50,
+      "Unnamed: 1": "3rd party Management",
+      "Unnamed: 2": "NO Vendor Classification",
+      "Unnamed: 3": "CRITICAL",
+      "Unnamed: 4": "Create critical/high/medium/low matrix",
+      "Unnamed: 5": NaN,
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 51,
+      "Unnamed: 1": "3rd party Management",
+      "Unnamed: 2": "NO SLA Monitoring",
+      "Unnamed: 3": "CRITICAL",
+      "Unnamed: 4": "Setup SLA dashboard, weekly reports",
+      "Unnamed: 5": NaN,
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 52,
+      "Unnamed: 1": "3rd party Management",
+      "Unnamed: 2": "NO Vendor Metrics",
+      "Unnamed: 3": "CRITICAL",
+      "Unnamed: 4": "Define & track 5-7 KPIs per vendor",
+      "Unnamed: 5": NaN,
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 53,
+      "Unnamed: 1": "3rd party Management",
+      "Unnamed: 2": "NO Risk Assessment",
+      "Unnamed: 3": "HIGH",
+      "Unnamed: 4": "Define risk assessment framework",
+      "Unnamed: 5": NaN,
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 54,
+      "Unnamed: 1": "3rd party Management",
+      "Unnamed: 2": "NO Roles & Authority",
+      "Unnamed: 3": "HIGH",
+      "Unnamed: 4": "Document vendor manager roles",
+      "Unnamed: 5": NaN,
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 55,
+      "Unnamed: 1": "QC",
+      "Unnamed: 2": "Không có chiến lược và roadmap QC rõ ràng",
+      "Unnamed: 3": "CRITICAL",
+      "Unnamed: 4": "Thiếu định hướng dài hạn, không thể đo lường tiến bộ, không liên kết với mục tiêu kinh doanh",
+      "Unnamed: 5": "Xây dựng QC Strategy 3-5 năm với roadmap chi tiết, KPIs đo lường, và liên kết trực tiếp với business objectives",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 56,
+      "Unnamed: 1": "QC",
+      "Unnamed: 2": "Không có quy trình test planning được chuẩn hóa",
+      "Unnamed: 3": "CRITICAL",
+      "Unnamed: 4": "Thiếu tính nhất quán, khó đảm bảo chất lượng test, không thể quản lý rủi ro hiệu quả",
+      "Unnamed: 5": "Thiết lập quy trình Test Planning chuẩn với template, timeline, và approval workflow rõ ràng",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 57,
+      "Unnamed: 1": "QC",
+      "Unnamed: 2": "Chưa có metrics và KPIs cho QA/QC",
+      "Unnamed: 3": "CRITICAL",
+      "Unnamed: 4": "Không thể đo lường hiệu quả QC, không có cơ sở để cải tiến, không thể chứng minh giá trị",
+      "Unnamed: 5": "Thiết lập bộ KPIs QC core (Test Coverage, Defect Density, Automation Rate, etc.) với targets và dashboards",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 58,
+      "Unnamed: 1": "QC",
+      "Unnamed: 2": "Không đo lường được test coverage",
+      "Unnamed: 3": "CRITICAL",
+      "Unnamed: 4": "Không biết được mức độ test đầy đủ, rủi ro cao về untested code, không thể tối ưu effort",
+      "Unnamed: 5": "Triển khai công cụ đo coverage (code coverage, requirement coverage) và thiết lập target tối thiểu",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 59,
+      "Unnamed: 1": "QC",
+      "Unnamed: 2": "Không có chiến lược test automation",
+      "Unnamed: 3": "CRITICAL",
+      "Unnamed: 4": "Automation không có hướng đi rõ ràng, lãng phí resources, ROI thấp",
+      "Unnamed: 5": "Xây dựng Test Automation Strategy với roadmap, tool selection, training plan, và ROI targets",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 60,
+      "Unnamed: 1": "QC",
+      "Unnamed: 2": "Không có quy trình test data management",
+      "Unnamed: 3": "CRITICAL",
+      "Unnamed: 4": "Test data không đáng tin cậy, rủi ro bảo mật cao, tốn thời gian setup manual",
+      "Unnamed: 5": "Thiết lập Test Data Management strategy với data provisioning, masking, và governance process",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 61,
+      "Unnamed: 1": "QC",
+      "Unnamed: 2": "Không tuân thủ các chuẩn QC quốc tế",
+      "Unnamed: 3": "CRITICAL",
+      "Unnamed: 4": "Không đáp ứng yêu cầu compliance, khó đối chiếu với best practices, rủi ro trong audit",
+      "Unnamed: 5": "Áp dụng framework chuẩn (ISTQB, ISO 29119) và thiết lập traceability từ requirements đến test results",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 62,
+      "Unnamed: 1": "QC",
+      "Unnamed: 2": "Quy trình Defect Management không được chuẩn hóa",
+      "Unnamed: 3": "HIGH",
+      "Unnamed: 4": "Bugs không được xử lý nhất quán, khó prioritize, không có accountability",
+      "Unnamed: 5": "Chuẩn hóa Defect Management process với priority/severity matrix, SLA theo mức độ, và workflow rõ ràng",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 63,
+      "Unnamed: 1": "QC",
+      "Unnamed: 2": "Quality gates không được thực thi đầy đủ",
+      "Unnamed: 3": "HIGH",
+      "Unnamed: 4": "Code quality không được đảm bảo, bugs có thể leak sang production",
+      "Unnamed: 5": "Thực thi quality gates nghiêm ngặt: build fail khi test fail, mandatory test coverage checks",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 64,
+      "Unnamed: 1": "QC",
+      "Unnamed: 2": "Chỉ có 1 test environment, không có configuration management",
+      "Unnamed: 3": "HIGH",
+      "Unnamed: 4": "Bottleneck trong testing, conflicts giữa các team, không thể test parallel",
+      "Unnamed: 5": "Thiết lập multiple test environments (Dev, SIT, UAT) với automation provisioning và config management",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 65,
+      "Unnamed: 1": "QC",
+      "Unnamed: 2": "Chính sách QC chỉ ở mức high-level và hiếm khi được cập nhật",
+      "Unnamed: 3": "MEDIUM",
+      "Unnamed: 4": "Chính sách không đủ chi tiết để hướng dẫn thực thi, không theo kịp thực tế",
+      "Unnamed: 5": "Phát triển QC Policy riêng biệt, chi tiết hơn với cơ chế review định kỳ (6 tháng/lần)",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 66,
+      "Unnamed: 1": "QC",
+      "Unnamed: 2": "RACI matrix không được tài liệu hóa",
+      "Unnamed: 3": "MEDIUM",
+      "Unnamed: 4": "Thiếu clarity về trách nhiệm khi có thay đổi team hoặc escalation",
+      "Unnamed: 5": "Tài liệu hóa RACI matrix cho tất cả QC activities và update định kỳ",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 67,
+      "Unnamed: 1": "QC",
+      "Unnamed: 2": "Quy trình regression testing không rõ ràng",
+      "Unnamed: 3": "MEDIUM",
+      "Unnamed: 4": "Edge cases không được cover, rủi ro regression bugs",
+      "Unnamed: 5": "Chuẩn hóa regression testing process, tăng automation coverage, bao gồm edge cases",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 68,
+      "Unnamed: 1": "QC",
+      "Unnamed: 2": "Performance testing chỉ làm theo yêu cầu, không có benchmarks",
+      "Unnamed: 3": "MEDIUM",
+      "Unnamed: 4": "Performance issues có thể không được phát hiện sớm, không có baseline để so sánh",
+      "Unnamed: 5": "Thiết lập performance benchmarks và làm load testing định kỳ cho critical systems",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 69,
+      "Unnamed: 1": "QC",
+      "Unnamed: 2": "Skill gaps đáng kể và không có training có tổ chức",
+      "Unnamed: 3": "MEDIUM",
+      "Unnamed: 4": "Team capability không được phát triển, phụ thuộc vào self-learning",
+      "Unnamed: 5": "Thiết lập training program có cấu trúc với focus vào automation, test design, và domain knowledge",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 70,
+      "Unnamed: 1": "QC",
+      "Unnamed: 2": "Không có defect triage process định kỳ",
+      "Unnamed: 3": "MEDIUM",
+      "Unnamed: 4": "Bugs resolution có thể chậm, thiếu forum để discuss technical issues",
+      "Unnamed: 5": "Thiết lập defect triage meetings định kỳ (weekly) giữa QC và Dev",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 71,
+      "Unnamed: 1": "QC",
+      "Unnamed: 2": "Không có test execution reports",
+      "Unnamed: 3": "MEDIUM",
+      "Unnamed: 4": "Stakeholders không có visibility về test progress và quality status",
+      "Unnamed: 5": "Thiết lập automated test reporting với key metrics và trends",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 72,
+      "Unnamed: 1": "QC",
+      "Unnamed: 2": "Tỷ lệ team biết automation tools thấp (25-30%)",
+      "Unnamed: 3": "MEDIUM",
+      "Unnamed: 4": "Automation không scale được, phụ thuộc vào một số người",
+      "Unnamed: 5": "Training toàn bộ QC team về automation tools, thiết lập automation champions",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 73,
+      "Unnamed: 1": "QC",
+      "Unnamed: 2": "Không có release testing process, rollback plan không chi tiết",
+      "Unnamed: 3": "MEDIUM",
+      "Unnamed: 4": "Rủi ro cao khi release production, không có safety net",
+      "Unnamed: 5": "Thiết lập release testing phase với checklist và rollback plan chi tiết",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 74,
+      "Unnamed: 1": "QC",
+      "Unnamed: 2": "Không có quy trình continuous improvement và roadmap nâng cao capability",
+      "Unnamed: 3": "MEDIUM",
+      "Unnamed: 4": "QC capability không được cải thiện có hệ thống",
+      "Unnamed: 5": "Thiết lập continuous improvement process (retrospectives, lessons learned) và maturity roadmap",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    },
+    {
+      "Unnamed: 0": 75,
+      "Unnamed: 1": "QC",
+      "Unnamed: 2": "Không rõ về tuân thủ GDPR và data protection trong testing",
+      "Unnamed: 3": "MEDIUM",
+      "Unnamed: 4": "Rủi ro compliance với data protection regulations",
+      "Unnamed: 5": "Đánh giá compliance gap và thiết lập data protection controls cho test data",
+      "Unnamed: 6": NaN,
+      "Unnamed: 7": NaN
+    }
+  ]
+}
