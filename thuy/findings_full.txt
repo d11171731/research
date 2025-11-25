@@ -1,0 +1,127 @@
+Total rows: 76
+Unnamed: 0|Unnamed: 1|Unnamed: 2|Unnamed: 3|Unnamed: 4|Unnamed: 5|Unnamed: 6|Unnamed: 7
+#|Area|Finding|% Current|Impact|Action|Owner|Timeline
+1|Request fullfilment Management|Metrics not tracked (SLA %, cycle time)|CRITICAL|Cannot measure performance, justify resources|Setup dashboard tracking 5 key metrics||
+2|Request fullfilment Management|NO quality & CSAT measurement|CRITICAL|Don't know if users happy or quality good|Create CSAT survey, quality metrics||
+3|Request fullfilment Management|Weak ITSM integration (all manual)|CRITICAL|Cannot do impact analysis, leverage data|Auto-link incidents/changes, CMDB update||
+4|Request fullfilment Management|NO formal service review|CRITICAL|Problems repeat, trends not identified|Setup monthly review with bottleneck analysis||
+5|Request fullfilment Management|Weak user engagement (25%)|HIGH|Users don't know SLA, no feedback channel|Communicate SLA clearly, setup feedback||
+6|Request fullfilment Management|NO business service mapping (25%)|HIGH|Cannot prioritize by business impact|Map requests to services, improve prioritization||
+7|Incident|Incident Manager role not defined|CRITICAL|No one owns IM quality|Define & assign Incident Manager role + responsibilities||
+8|Incident|SLA not approved per severity (P1-P4)|CRITICAL|No resolution target → cannot measure performance|Define SLA per severity, get approval||
+9|Incident|Escalation path ad-hoc, not formal|CRITICAL|Incidents escalate slowly → delayed resolution|Create escalation matrix by severity/type||
+10|Incident|Workflow automation 0% - all manual|HIGH|Manual work = 80% admin time → slow response|Setup auto incident creation, auto-assign, priority||
+11|Incident|ITSM integration 0% (Problem/Change/CMDB)|CRITICAL|Cannot do impact analysis → wrong decisions|Integrate incidents with Problem/Change/CMDB||
+12|Incident|ITIL/ISO compliance 0%|HIGH|Not industry standard → audit risk|Implement ITIL IM practices, plan audit||
+13|Change Management|Phân tích rủi ro chưa có thang đánh giá và phân loại|CRITICAL|Không phân loại mức rủi ro, không có escalation path, tất cả đều theo luồng chung nên có thể sẽ bị chậm do không có đánh giấu ưu tiên|"- Tạo thang đánh giá rủi ro 1-5
+- Xác định các tiêu chí thay đổi cao rủi ro
+- Tạo đường dẫn escalation (escalation path)
+- Ghi nhận thành tài liệu"|Change Management,  CAB team, PQA|
+14|Change Management|Chưa có quy định về lưu trữ và backup dữ liệu CR|CRITICAL|"- Không biết thời gian lưu giữ dữ liệu RFC
+- Không có Kế hoạch khôi phục khi xảy ra sự cố (DR)
+- Mất khả năng truy vết lịch sử thay đổi (traceability)"|"- Định rõ chính sách lưu giữ (thời hạn lưu trữ, theo iTIL thì 1-3-5 năm tùy theo Tier, ISO 27001: 5 năm)
+- Tạo quy trình sao lưu hàng tháng
+- Test quy trình khôi phục (restore)"|Change Management, Infra|
+15|Change Management|Chưa triển khai Audit đối với hoạt động CM|CRITICAL|Không track được tuân thủ với chính sách, không đánh giá được các rủi ro vi phạm và có |"- Lên lịch compliance audit
+- Xác định phạm vi audit & danh sách kiểm tra (checklist)
+- Ghi lại các vi phạm & Kế hoạch khắc phục"|Change Management, PQA|
+16|Change Management|CR template quá dài, nhiều thông tin chưa có cơ chế đánh giá, xác thực (ví dụ: Đánh giá ảnh hưởng, đánh giá rủi ro…)|HIGH|Khó khăn cho người tạo CR và review/phê duyệt CR|"- Đơn giản hóa template theo loại CR
+- Bổ sung đánh giá ảnh hưởng, đánh giá rủi ro
+- Bổ sung KMS cho tra cứu các hướng dẫn liên quan CR, CM"|Change Management, Development team, CAB, PQA|
+17|Change Management|Communication Plan chưa có hướng dẫn cụ thể|HIGH|"- Team giao tiếp ad-hoc (không có quy trình)
+- Thông tin không nhất quán giữa các team
+- Rủi ro ảnh hưởng đến uy tín do phối hợp truyền thông đến KH"|"- Xác định các nhóm đối tượng cần thông báo (stakeholder groups)
+- Lên lịch thông báo: trước/trong/sau thay đổi (pre/during/post-change)
+- Ghi nhận thành tài liệu"|Change Management Team, Product team, PQA|
+18|Change Management|CAB thiếu quy định tiêu chí đánh giá & họp định kỳ|HIGH|"- Thiếu tiêu chí đánh giá ổn định có thể dẫn tới quyết định của CAB không nhất quán
+- Không có tracking định kỳ"|"- Xác định tiêu chí đánh giá chính
+- Xác định lịch họp CAB định kỳ
+- Ghi nhận decision log"|Change Management Team, CAB|
+19|Change Management|RACI chưa có tài liệu chính thức|HIGH|"- Không rõ trách nhiệm và quyền hạn, có thể gây xung đột trong quyết định CM
+- Khó Audit"|"- Ban hành bổ sung RACI
+- Có cơ chế cập nhật khi phát sinh thay đổi"|Change Management Team, PQA|
+20|Change Management|Change Failure Request (CFR) Root Causes chưa có phân tích chiến lược|HIGH|Không hiểu nguyên nhân gốc của các request Fail sẽ khó improve|Phân tích top 3 nguyên nhân gốc của các CFR để có kế hoạch cải thiện|Change Management Team, Development team, PQA|
+21|Change Management|Incident-Change Linkage thực hiện manual|HIGH|"	- Incident investigation cần truy vết thủ công
+- Effort cao, thời gian xử lý (TAT) chậm"|"	- Xây dựng query tự động hóa liên kết incident-change
+- Tích hợp API
+- Test tự động hóa & đào tạo team"|Change Management Team, Incident Management Team, Development team, PQA|
+22|Change Management|CMDB Integration chưa thiết lập|HIGH|"	- Không biết thay đổi ảnh hưởng những cấu hình nào 
+- Không track dependencies giữa các CIs
+- Khó phân tích nguyên nhân gốc (root cause analysis)"|"- Xác định các CIs chính yếu (core CIs)
+- Ánh xạ Change Request với CIs
+- Tích hợp CMDB với Jira
+- Tự động cập nhật khi deployment"|Change Management Team, Development team, Infra|
+23|Change Management|Sonar đang tạm dừng hoạt động|HIGH|Quality control yếu|- Restart lại Sonar|Trao đổi thêm với Devops|
+24|Change Management|PIR chưa kết nối CI/CD, kiểm tra manual|MEDIUM|"- Không biết PIR có match với deployment thực tế Không
+- Không track Tự động success metrics"|"- Tự động hóa kết nối giữa Jira & deployment tools
+- Tạo PIR success metrics
+- Tự động kích hoạt PIR khi deploy"|Change Management Team, DevOps Team, VHUD|
+25|Change Management|Maintenance Window chưa có quy định criticality-based|MEDIUM|"- Truyền Thông Không đồng nhất
+- Khách hàng Không biết lịch maintenance"|"	- Định rõ chính sách maintenance window theo criticality (P1/P2/P3)
+- Tạo template thông báo
+- Cập nhật SLA"|Change Management Team, DevOps Team, VHUD|
+26|Change Management|Change Freeze Periods chưa có quy định cụ thể|MEDIUM|Ảnh hưởng Sprint Planning|"- Tạo chính sách freeze period
+- Thông báo 30 ngày trước (advance notification)
+- Truyền thông lịch hàng quý
+- Tích hợp vào sprint planning"|Change Management Team, Development Team|
+27|Change Management|Dashboard chưa tự động lấy dữ liệu theo thời gian chọn|MEDIUM|"- Lãnh đạo Không có data real-time để quyết định
+- Tracking SLA Không chính Xác"|"- Xây dựng tự động hóa dashboard (API/query)
+- Thêm date picker để chọn khoảng thời gian
+- Xuất bản hàng tuần/tháng
+- Setup real-time alerts"|Change Management Team, BI team?|
+28|Change Management|Batch Approval cho nhóm change liên quan chưa có|MEDIUM|- Approval process Không tối ưu|"- Ánh xạ services với hệ thống hiện tại
+- Nhóm changes theo service
+- cập nhật batch Approval workflow
+- Test quy trình"|Change Management Team, Service Owner, Infra, Development Team|
+29|Change Management|Feedback & Improvement chưa có backlog cụ thể|MEDIUM|Chưa có roadmap cho cải thiện nên chưa có hiệu quả|"	- Tạo template improvement backlog
+- Review hàng tháng với team
+- Ưu tiên theo tác động (impact) & nỗ lực (effort)
+- Theo dõi hoàn thành"|Change Management Team, ITSM lead|
+30|Change Management|Training CM chưa đặc thù & chuyên sâu|MEDIUM|Chưa có training cho CM, chủ yếu tự học|- Thiết kế training CM chuyên sâu (ITIL 4 Practice)|Change Management Team, ITSM lead, L&D, HR|
+31|Change Management|Chứng chỉ & yêu cầu năng lực CM chưa định rõ|MEDIUM|"- Không có Kế hoạch tuyển dụng
+- rủi ro Mất nhân tài, năng lực Không scale"|Xây dựng 4P next gen cho CM|ITSM lead, HR|
+32|Configuration|Chính sách CMDB chưa formal|CRITICAL|Không rõ scope, CI types, roles → quản lý không nhất quán|Tạo CMDB Policy Charter document||
+33|Configuration|Không có tool CMDB - sử dụng Excel|CRITICAL|Không thể tự động, không relationship mapping, không integration|Đánh giá & select CMDB tool (ServiceNow/Remedy)||
+34|Configuration|Chưa map CI relationships & service dependencies|HIGH|Không biết service nào phụ thuộc CI nào → không tính impact được|Map service-to-CI cho top 10 services||
+35|Configuration|Không có audit trail & audit process|HIGH|Không track thay đổi (ai, khi nào) → rủi ro compliance|Setup audit logging, monthly audits||
+36|Configuration|CI Owners không được gán rõ ràng|HIGH|Không ai chịu trách nhiệm keep data accurate → dữ liệu lỗi thời|Gán CI Owner cho mỗi hệ thống||
+37|Configuration|Không có CMDB Steward role & governance|HIGH|Không ai quản lý tổng thể CMDB, conflicts không resolve|Assign CMDB Steward||
+38|Configuration|CMDB không integrate Incident & Change|HIGH|Incident/Change workflows không dùng CMDB data → không update|Integrate CMDB with tools||
+39|Configuration|Không có data quality standards|HIGH|Duplicate CIs, inconsistent data → không tin tưởng CMDB|Define quality standards, validation||
+40|Configuration|Không có auto-population từ monitoring tools|MEDIUM|Manual data entry → thời gian lãng phí, data lag|Setup data feeds từ monitoring tools||
+41|Configuration|CMDB team part-time, không training|MEDIUM|CMDB không ưu tiên, team burnout, knowledge loss|Assign dedicated CMDB Admin, provide training||
+42|Configuration|Không có KPI đo CMDB effectiveness|MEDIUM|Không biết coverage, quality → không justify investment|Define metrics, create dashboard||
+43|Process QA|NO audit checklists (IM, CM, PM)|CRITICAL|Audits ad-hoc, inconsistent|Create standardized checklists||
+44|Process QA|Audit frequency yearly only|CRITICAL|Cannot identify trends|Plan quarterly audits||
+45|Process QA|Coverage only 3% (1/30 processes)|CRITICAL|Most processes never audited|Create 3-year plan for 80% coverage||
+46|Process QA|Metrics almost ZERO (10%)|CRITICAL|Cannot measure PQA effectiveness|Define & track 5 key metrics||
+47|Process QA|NO escalation for critical findings|CRITICAL|Critical issues ignored|Define escalation procedure||
+48|Process QA|NO maturity assessment|MEDIUM|Cannot prioritize improvements|Use maturity framework (ITIL)||
+49|3rd party Management|NO formal 3PM Policy|CRITICAL|Write formal policy, CIO approve|||
+50|3rd party Management|NO Vendor Classification|CRITICAL|Create critical/high/medium/low matrix|||
+51|3rd party Management|NO SLA Monitoring|CRITICAL|Setup SLA dashboard, weekly reports|||
+52|3rd party Management|NO Vendor Metrics|CRITICAL|Define & track 5-7 KPIs per vendor|||
+53|3rd party Management|NO Risk Assessment|HIGH|Define risk assessment framework|||
+54|3rd party Management|NO Roles & Authority|HIGH|Document vendor manager roles|||
+55|QC|Không có chiến lược và roadmap QC rõ ràng|CRITICAL|Thiếu định hướng dài hạn, không thể đo lường tiến bộ, không liên kết với mục tiêu kinh doanh|Xây dựng QC Strategy 3-5 năm với roadmap chi tiết, KPIs đo lường, và liên kết trực tiếp với business objectives||
+56|QC|Không có quy trình test planning được chuẩn hóa|CRITICAL|Thiếu tính nhất quán, khó đảm bảo chất lượng test, không thể quản lý rủi ro hiệu quả|Thiết lập quy trình Test Planning chuẩn với template, timeline, và approval workflow rõ ràng||
+57|QC|Chưa có metrics và KPIs cho QA/QC|CRITICAL|Không thể đo lường hiệu quả QC, không có cơ sở để cải tiến, không thể chứng minh giá trị|Thiết lập bộ KPIs QC core (Test Coverage, Defect Density, Automation Rate, etc.) với targets và dashboards||
+58|QC|Không đo lường được test coverage|CRITICAL|Không biết được mức độ test đầy đủ, rủi ro cao về untested code, không thể tối ưu effort|Triển khai công cụ đo coverage (code coverage, requirement coverage) và thiết lập target tối thiểu||
+59|QC|Không có chiến lược test automation|CRITICAL|Automation không có hướng đi rõ ràng, lãng phí resources, ROI thấp|Xây dựng Test Automation Strategy với roadmap, tool selection, training plan, và ROI targets||
+60|QC|Không có quy trình test data management|CRITICAL|Test data không đáng tin cậy, rủi ro bảo mật cao, tốn thời gian setup manual|Thiết lập Test Data Management strategy với data provisioning, masking, và governance process||
+61|QC|Không tuân thủ các chuẩn QC quốc tế|CRITICAL|Không đáp ứng yêu cầu compliance, khó đối chiếu với best practices, rủi ro trong audit|Áp dụng framework chuẩn (ISTQB, ISO 29119) và thiết lập traceability từ requirements đến test results||
+62|QC|Quy trình Defect Management không được chuẩn hóa|HIGH|Bugs không được xử lý nhất quán, khó prioritize, không có accountability|Chuẩn hóa Defect Management process với priority/severity matrix, SLA theo mức độ, và workflow rõ ràng||
+63|QC|Quality gates không được thực thi đầy đủ|HIGH|Code quality không được đảm bảo, bugs có thể leak sang production|Thực thi quality gates nghiêm ngặt: build fail khi test fail, mandatory test coverage checks||
+64|QC|Chỉ có 1 test environment, không có configuration management|HIGH|Bottleneck trong testing, conflicts giữa các team, không thể test parallel|Thiết lập multiple test environments (Dev, SIT, UAT) với automation provisioning và config management||
+65|QC|Chính sách QC chỉ ở mức high-level và hiếm khi được cập nhật|MEDIUM|Chính sách không đủ chi tiết để hướng dẫn thực thi, không theo kịp thực tế|Phát triển QC Policy riêng biệt, chi tiết hơn với cơ chế review định kỳ (6 tháng/lần)||
+66|QC|RACI matrix không được tài liệu hóa|MEDIUM|Thiếu clarity về trách nhiệm khi có thay đổi team hoặc escalation|Tài liệu hóa RACI matrix cho tất cả QC activities và update định kỳ||
+67|QC|Quy trình regression testing không rõ ràng|MEDIUM|Edge cases không được cover, rủi ro regression bugs|Chuẩn hóa regression testing process, tăng automation coverage, bao gồm edge cases||
+68|QC|Performance testing chỉ làm theo yêu cầu, không có benchmarks|MEDIUM|Performance issues có thể không được phát hiện sớm, không có baseline để so sánh|Thiết lập performance benchmarks và làm load testing định kỳ cho critical systems||
+69|QC|Skill gaps đáng kể và không có training có tổ chức|MEDIUM|Team capability không được phát triển, phụ thuộc vào self-learning|Thiết lập training program có cấu trúc với focus vào automation, test design, và domain knowledge||
+70|QC|Không có defect triage process định kỳ|MEDIUM|Bugs resolution có thể chậm, thiếu forum để discuss technical issues|Thiết lập defect triage meetings định kỳ (weekly) giữa QC và Dev||
+71|QC|Không có test execution reports|MEDIUM|Stakeholders không có visibility về test progress và quality status|Thiết lập automated test reporting với key metrics và trends||
+72|QC|Tỷ lệ team biết automation tools thấp (25-30%)|MEDIUM|Automation không scale được, phụ thuộc vào một số người|Training toàn bộ QC team về automation tools, thiết lập automation champions||
+73|QC|Không có release testing process, rollback plan không chi tiết|MEDIUM|Rủi ro cao khi release production, không có safety net|Thiết lập release testing phase với checklist và rollback plan chi tiết||
+74|QC|Không có quy trình continuous improvement và roadmap nâng cao capability|MEDIUM|QC capability không được cải thiện có hệ thống|Thiết lập continuous improvement process (retrospectives, lessons learned) và maturity roadmap||
+75|QC|Không rõ về tuân thủ GDPR và data protection trong testing|MEDIUM|Rủi ro compliance với data protection regulations|Đánh giá compliance gap và thiết lập data protection controls cho test data||
+
